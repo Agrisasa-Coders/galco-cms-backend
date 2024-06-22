@@ -3,7 +3,6 @@ package com.gapco.backend.service;
 
 import com.gapco.backend.dto.KnowledgeBaseCreateDTO;
 import com.gapco.backend.entity.KnowledgeBase;
-import com.gapco.backend.entity.Technology;
 import com.gapco.backend.exception.EntityNotFoundException;
 import com.gapco.backend.repository.KnowledgeBaseRepository;
 import com.gapco.backend.repository.ServiceRepository;
