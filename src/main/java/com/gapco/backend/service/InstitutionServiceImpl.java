@@ -104,7 +104,8 @@ public class InstitutionServiceImpl implements InstitutionService{
             institution.setContactPhoneTwo(updatedInstitution.getContactPhoneTwo());
             institution.setBriefHistory(updatedInstitution.getBriefHistory());
             institution.setFoundedYear(updatedInstitution.getFoundedYear());
-
+            institution.setMission(updatedInstitution.getMission());
+            institution.setVision(updatedInstitution.getVision());
 
             institutionRepository.save(institution);
 
