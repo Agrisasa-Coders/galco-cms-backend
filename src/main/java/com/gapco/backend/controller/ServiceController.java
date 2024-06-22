@@ -1,10 +1,10 @@
 package com.gapco.backend.controller;
 
 
+import com.gapco.backend.dto.ServiceCreateDTO;
 import com.gapco.backend.dto.TeamMemberCreateDTO;
-import com.gapco.backend.entity.Permission;
 import com.gapco.backend.response.CustomApiResponse;
-import com.gapco.backend.service.TeamService;
+import com.gapco.backend.service.ServiceImpl;
 import com.gapco.backend.util.AppConstants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -24,19 +24,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping(AppConstants.BASE_URI+"/teams")
-@Tag(name = "TeamController", description = "Operations for managing team members")
-public class TeamController {
+@RequestMapping(AppConstants.BASE_URI+"/services")
+@Tag(name = "ServiceController", description = "Operations for managing services")
+public class ServiceController {
 
-    private final TeamService teamService;
+    private final ServiceImpl service;
 
     @Operation(
-            summary = "Create a team member"
+            summary = "Create a service"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
     @PostMapping
-    public ResponseEntity<CustomApiResponse<Object>> AddTeamMember(@Valid @ModelAttribute TeamMemberCreateDTO teamMemberCreateDTO){
-        log.info("TeamController::AddTeamMember Execution started");
-        return new ResponseEntity<>(teamService.addTeamMember(teamMemberCreateDTO), HttpStatus.OK);
+    public ResponseEntity<CustomApiResponse<Object>> createService(@Valid @ModelAttribute ServiceCreateDTO serviceCreateDTO){
+        log.info("ServiceController::createService Execution started");
+        return new ResponseEntity<>(service.addService(serviceCreateDTO), HttpStatus.OK);
     }
 }

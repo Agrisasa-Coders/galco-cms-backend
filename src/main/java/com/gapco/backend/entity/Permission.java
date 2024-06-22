@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Permission {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "permissionName is mandatory")

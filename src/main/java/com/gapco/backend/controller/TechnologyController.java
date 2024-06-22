@@ -2,9 +2,10 @@ package com.gapco.backend.controller;
 
 
 import com.gapco.backend.dto.TeamMemberCreateDTO;
-import com.gapco.backend.entity.Permission;
+import com.gapco.backend.entity.Technology;
 import com.gapco.backend.response.CustomApiResponse;
 import com.gapco.backend.service.TeamService;
+import com.gapco.backend.service.TechnologyService;
 import com.gapco.backend.util.AppConstants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -19,24 +20,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping(AppConstants.BASE_URI+"/teams")
-@Tag(name = "TeamController", description = "Operations for managing team members")
-public class TeamController {
-
-    private final TeamService teamService;
+@RequestMapping(AppConstants.BASE_URI+"/techs")
+@Tag(name = "TechnologyController", description = "Operations for managing technologies used")
+public class TechnologyController {
+    private final TechnologyService technologyService;
 
     @Operation(
-            summary = "Create a team member"
+            summary = "Add a new technology"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
     @PostMapping
-    public ResponseEntity<CustomApiResponse<Object>> AddTeamMember(@Valid @ModelAttribute TeamMemberCreateDTO teamMemberCreateDTO){
-        log.info("TeamController::AddTeamMember Execution started");
-        return new ResponseEntity<>(teamService.addTeamMember(teamMemberCreateDTO), HttpStatus.OK);
+    public ResponseEntity<CustomApiResponse<Object>> AddTechnology(@Valid @RequestBody Technology technology){
+        log.info("TechnologyController::AddTechnology Execution started");
+        return new ResponseEntity<>(technologyService.addTechnology(technology), HttpStatus.OK);
     }
 }
