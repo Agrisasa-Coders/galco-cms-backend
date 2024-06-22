@@ -22,7 +22,7 @@ import java.util.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class User implements UserDetails {
+public class User extends SuperEntity implements UserDetails   {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

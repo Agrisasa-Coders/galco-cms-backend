@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Team {
+public class Team  extends SuperEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

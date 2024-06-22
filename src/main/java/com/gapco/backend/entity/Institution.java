@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Institution {
+public class Institution extends SuperEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -28,4 +28,9 @@ public class Service {
             @JoinColumn(name="technology_id",referencedColumnName = "id")
     })
     private List<Technology> technologies;
+
+
+    @OneToMany(mappedBy="service",cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<KnowledgeBase> knowledgeBases;
 }
