@@ -1,5 +1,6 @@
 package com.gapco.backend.util;
 
+import com.gapco.backend.service.LogService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
