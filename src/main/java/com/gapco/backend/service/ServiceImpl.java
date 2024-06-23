@@ -1,14 +1,19 @@
 package com.gapco.backend.service;
 
 import com.gapco.backend.dto.ServiceCreateDTO;
-import com.gapco.backend.dto.TeamMemberCreateDTO;
-import com.gapco.backend.entity.Team;
+import com.gapco.backend.dto.ServiceUpdateDTO;
 import com.gapco.backend.entity.Technology;
+import com.gapco.backend.exception.EntityNotFoundException;
 import com.gapco.backend.repository.ServiceRepository;
 import com.gapco.backend.repository.TechnologyRepository;
 import com.gapco.backend.response.CustomApiResponse;
+import com.gapco.backend.util.AppConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -51,6 +56,89 @@ public class ServiceImpl {
 
         log.info("ServiceImpl::addService Execution ended");
         return customApiResponse;
+
+    }
+
+
+
+    public CustomApiResponse<Object> getAll(int page, int size, String sortBy, String sortDir) {
+
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(page,size,sort);
+
+        Page<com.gapco.backend.entity.Service> pageableServices = serviceRepository.findAll(pageable);
+
+        List<com.gapco.backend.entity.Service> services = pageableServices.getContent();
+
+        CustomApiResponse<Object> customApiResponse = new CustomApiResponse(
+                AppConstants.OPERATION_SUCCESSFULLY_MESSAGE,
+                pageableServices.getTotalElements(),
+                pageableServices.getTotalPages(),
+                pageableServices.getNumber()
+
+        );
+        customApiResponse.setData(services);
+        return customApiResponse;
+    }
+
+
+    public CustomApiResponse<Object> view(Long id) {
+
+        Optional<com.gapco.backend.entity.Service> checkService = serviceRepository.findById(id);
+
+        if(checkService.isPresent()){
+
+            com.gapco.backend.entity.Service serviceDetails = checkService.get();
+            CustomApiResponse<Object> customApiResponse = new CustomApiResponse<>("Record Founds");
+            customApiResponse.setData(serviceDetails);
+            return customApiResponse;
+
+        } else {
+            throw new EntityNotFoundException("Service not found");
+        }
+    }
+
+
+    public CustomApiResponse<Object> update(Long id, ServiceUpdateDTO serviceUpdateDTO) {
+
+        Optional<com.gapco.backend.entity.Service> findService = serviceRepository.findById(id);
+
+        if(findService.isPresent()){
+
+            com.gapco.backend.entity.Service foundService = findService.get();
+            foundService.setName(serviceUpdateDTO.getName());
+            foundService.setDescription(serviceUpdateDTO.getDescription());
+
+            if(serviceUpdateDTO.getPhoto() != null){
+
+                //update photo
+                String filePath = storageService.storeFileToFileSystem(
+                        serviceUpdateDTO.getPhoto(),
+                        serviceUpdateDTO.getPhoto().getOriginalFilename()
+                );
+
+                foundService.setPhotoUrl(filePath);
+            }
+
+
+
+            //Setting technologies
+            if(serviceUpdateDTO.getTechnologies() !=null && serviceUpdateDTO.getTechnologies().length > 0){
+                foundService.setTechnologies(this.setTechnologyList(serviceUpdateDTO.getTechnologies()));
+            }
+
+            serviceRepository.save(foundService);
+
+            CustomApiResponse<Object> customApiResponse = new CustomApiResponse<>("Service has been successfully updated");
+            customApiResponse.setData(foundService);
+
+            log.info("ServiceImpl::update Execution ended");
+            return customApiResponse;
+        } else {
+            throw new EntityNotFoundException("Service specified is not found");
+        }
 
     }
 
