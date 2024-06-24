@@ -7,7 +7,6 @@ import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.servers.Server;
-import io.swagger.v3.oas.models.tags.Tag;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -27,17 +26,17 @@ public class OpenAPIConfig {
         prodServer.setDescription("Server URL in Production environment");
 
         Contact contact = new Contact();
-        contact.setEmail("zff@gmail.com");
-        contact.setName("Zff");
-        contact.setUrl("https://zff.com/");
+        contact.setEmail("galco@gmail.com");
+        contact.setName("galco");
+        contact.setUrl("https://galco.com/");
 
         License mitLicense = new License().name("MIT License").url("https://choosealicense.com/licenses/mit/");
 
         Info info = new Info()
-                .title("Zanzibar Football Federation Management API")
+                .title("Galco CMS API")
                 .version("1.0")
                 .contact(contact)
-                .description("This API exposes endpoints to manage zanzibar football federation")
+                .description("This API exposes endpoints for managing Galco CMS")
                 .license(mitLicense);
 
         return new OpenAPI()

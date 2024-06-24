@@ -2,6 +2,7 @@ package com.gapco.backend.service;
 
 
 import com.gapco.backend.dto.KnowledgeBaseCreateDTO;
+import com.gapco.backend.dto.KnowledgeBaseUpdateDTO;
 import com.gapco.backend.entity.KnowledgeBase;
 import com.gapco.backend.exception.EntityNotFoundException;
 import com.gapco.backend.repository.KnowledgeBaseRepository;
@@ -25,6 +26,7 @@ import java.util.Optional;
 public class KnowledgeBaseService {
     private final KnowledgeBaseRepository knowledgeBaseRepository;
     private final ServiceRepository serviceRepository;
+    private final StorageService storageService;
 
     public CustomApiResponse<Object> addNewKnowledgeBase(KnowledgeBaseCreateDTO knowledge){
         log.info("KnowledgeBaseService::addNewKnowledgeBase Execution started");
@@ -39,6 +41,13 @@ public class KnowledgeBaseService {
             com.gapco.backend.entity.Service service = serviceOptional.get();
 
             newKnowledgeBase.setService(service);
+
+            String filePath = storageService.storeFileToFileSystem(
+                    knowledge.getPhoto(),
+                    knowledge.getPhoto().getOriginalFilename()
+            );
+
+            newKnowledgeBase.setPhotoUrl(filePath);
 
             knowledgeBaseRepository.save(newKnowledgeBase);
 
@@ -94,22 +103,33 @@ public class KnowledgeBaseService {
     }
 
 
-    public CustomApiResponse<Object> update(Long id,KnowledgeBaseCreateDTO blog) {
+    public CustomApiResponse<Object> update(Long id, KnowledgeBaseUpdateDTO knowledgeBase) {
 
         Optional<KnowledgeBase> findKnowledgeBase = knowledgeBaseRepository.findById(id);
 
         if(findKnowledgeBase.isPresent()){
 
-            Optional<com.gapco.backend.entity.Service> serviceOptional = serviceRepository.findById(blog.getServiceId());
+            Optional<com.gapco.backend.entity.Service> serviceOptional = serviceRepository.findById(knowledgeBase.getServiceId());
 
             if(serviceOptional.isPresent()){
                 KnowledgeBase updatedKnowledge = findKnowledgeBase.get();
-                updatedKnowledge.setDescription(blog.getDescription());
-                updatedKnowledge.setTitle(blog.getTitle());
+                updatedKnowledge.setDescription(knowledgeBase.getDescription());
+                updatedKnowledge.setTitle(knowledgeBase.getTitle());
 
                 com.gapco.backend.entity.Service service = serviceOptional.get();
 
                 updatedKnowledge.setService(service);
+
+                if(knowledgeBase.getPhoto() != null){
+
+                    String filePath = storageService.storeFileToFileSystem(
+                            knowledgeBase.getPhoto(),
+                            knowledgeBase.getPhoto().getOriginalFilename()
+                    );
+
+                    updatedKnowledge.setPhotoUrl(filePath);
+                }
+
 
                 knowledgeBaseRepository.save(updatedKnowledge);
 

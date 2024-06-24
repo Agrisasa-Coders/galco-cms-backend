@@ -15,6 +15,9 @@ public class Blog {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    private String quote;
+    private String photoUrl;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "service_id")
     private Service service;

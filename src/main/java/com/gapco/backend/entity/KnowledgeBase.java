@@ -11,6 +11,7 @@ public class KnowledgeBase extends SuperEntity {
     private Long id;
 
     private String title;
+    private String photoUrl;
 
     @Column(columnDefinition = "TEXT")
     private String description;

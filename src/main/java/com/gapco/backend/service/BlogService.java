@@ -1,5 +1,7 @@
 package com.gapco.backend.service;
 
+import com.gapco.backend.dto.BlogCreateDTO;
+import com.gapco.backend.dto.BlogUpdateDTO;
 import com.gapco.backend.dto.KnowledgeBaseCreateDTO;
 import com.gapco.backend.entity.Blog;
 import com.gapco.backend.exception.EntityNotFoundException;
@@ -25,8 +27,9 @@ import java.util.Optional;
 public class BlogService {
     private final BlogRepository blogRepository;
     private final ServiceRepository serviceRepository;
+    private final StorageService storageService;
 
-    public CustomApiResponse<Object> addBlogPost(KnowledgeBaseCreateDTO blog){
+    public CustomApiResponse<Object> addBlogPost(BlogCreateDTO blog){
         log.info("BlogService::addBlogPost Execution started");
 
         Optional<com.gapco.backend.entity.Service> serviceOptional = serviceRepository.findById(blog.getServiceId());
@@ -35,10 +38,18 @@ public class BlogService {
             Blog newBlog = new Blog();
             newBlog.setDescription(blog.getDescription());
             newBlog.setTitle(blog.getTitle());
+            newBlog.setQuote(blog.getQuote());
 
             com.gapco.backend.entity.Service service = serviceOptional.get();
 
             newBlog.setService(service);
+
+            String filePath = storageService.storeFileToFileSystem(
+                    blog.getPhoto(),
+                    blog.getPhoto().getOriginalFilename()
+            );
+
+            newBlog.setPhotoUrl(filePath);
 
             blogRepository.save(newBlog);
 
@@ -93,7 +104,7 @@ public class BlogService {
         }
     }
 
-    public CustomApiResponse<Object> update(Long id,KnowledgeBaseCreateDTO blog) {
+    public CustomApiResponse<Object> update(Long id, BlogUpdateDTO blog) {
 
         Optional<Blog> findBlog = blogRepository.findById(id);
 
@@ -105,10 +116,21 @@ public class BlogService {
                 Blog updatedBlogPost = findBlog.get();
                 updatedBlogPost.setDescription(blog.getDescription());
                 updatedBlogPost.setTitle(blog.getTitle());
+                updatedBlogPost.setQuote(blog.getQuote());
 
                 com.gapco.backend.entity.Service service = serviceOptional.get();
 
                 updatedBlogPost.setService(service);
+
+                if(blog.getPhoto() != null){
+
+                    String filePath = storageService.storeFileToFileSystem(
+                            blog.getPhoto(),
+                            blog.getPhoto().getOriginalFilename()
+                    );
+
+                    updatedBlogPost.setPhotoUrl(filePath);
+                }
 
                 blogRepository.save(updatedBlogPost);
 

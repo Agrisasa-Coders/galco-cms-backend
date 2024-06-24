@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class KnowledgeBaseCreateDTO {
+public class KnowledgeBaseUpdateDTO {
     @Schema(
             name = "serviceId",
             description = "This Id of the service",
@@ -36,9 +36,8 @@ public class KnowledgeBaseCreateDTO {
     @Schema(
             name = "photo",
             description = "This is the picture/photo of the service",
-            requiredMode = Schema.RequiredMode.REQUIRED
+            requiredMode = Schema.RequiredMode.NOT_REQUIRED
     )
-    @NotNull(message = "photo is mandatory")
     private MultipartFile photo;
 
 

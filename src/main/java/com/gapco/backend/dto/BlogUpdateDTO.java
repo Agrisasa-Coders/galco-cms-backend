@@ -1,6 +1,5 @@
 package com.gapco.backend.dto;
 
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,10 +8,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class KnowledgeBaseCreateDTO {
+public class BlogUpdateDTO {
+
     @Schema(
             name = "serviceId",
             description = "This Id of the service",
@@ -36,11 +37,9 @@ public class KnowledgeBaseCreateDTO {
     @Schema(
             name = "photo",
             description = "This is the picture/photo of the service",
-            requiredMode = Schema.RequiredMode.REQUIRED
+            requiredMode = Schema.RequiredMode.NOT_REQUIRED
     )
-    @NotNull(message = "photo is mandatory")
     private MultipartFile photo;
-
 
     @Schema(
             name = "description",
@@ -50,4 +49,14 @@ public class KnowledgeBaseCreateDTO {
     )
     @NotBlank(message = "description is mandatory")
     private String description;
+
+
+    @Schema(
+            name = "quote",
+            description = "quote of the blog",
+            requiredMode = Schema.RequiredMode.REQUIRED,
+            type = "String"
+    )
+    @NotBlank(message = "quote is mandatory")
+    private String quote;
 }

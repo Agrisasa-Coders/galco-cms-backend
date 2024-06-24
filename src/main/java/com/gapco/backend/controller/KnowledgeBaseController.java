@@ -2,6 +2,7 @@ package com.gapco.backend.controller;
 
 
 import com.gapco.backend.dto.KnowledgeBaseCreateDTO;
+import com.gapco.backend.dto.KnowledgeBaseUpdateDTO;
 import com.gapco.backend.response.CustomApiResponse;
 import com.gapco.backend.service.KnowledgeBaseService;
 import com.gapco.backend.util.AppConstants;
@@ -32,7 +33,7 @@ public class KnowledgeBaseController {
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
     @PostMapping
-    public ResponseEntity<CustomApiResponse<Object>> AddKnowledgeBase(@Valid @RequestBody KnowledgeBaseCreateDTO knowledgeBaseCreateDTO){
+    public ResponseEntity<CustomApiResponse<Object>> AddKnowledgeBase(@Valid @ModelAttribute KnowledgeBaseCreateDTO knowledgeBaseCreateDTO){
         log.info("KnowledgeBaseController::AddKnowledgeBase Execution started");
         return new ResponseEntity<>(knowledgeBaseService.addNewKnowledgeBase(knowledgeBaseCreateDTO), HttpStatus.OK);
     }
@@ -73,7 +74,7 @@ public class KnowledgeBaseController {
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
     @PutMapping("/{id}")
     public ResponseEntity<CustomApiResponse<Object>> update(
-            @Parameter(description = "Id of the blog post") @PathVariable Long id, @RequestBody KnowledgeBaseCreateDTO knowledgeBaseCreateDTO
+            @Parameter(description = "Id of the blog post") @PathVariable Long id, @ModelAttribute KnowledgeBaseUpdateDTO knowledgeBaseCreateDTO
     ){
         log.info("KnowledgeBaseController::update Execution started");
         return new ResponseEntity<>(knowledgeBaseService.update(id,knowledgeBaseCreateDTO), HttpStatus.OK);
