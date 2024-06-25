@@ -135,4 +135,13 @@ public class InstitutionCreateDTO {
     )
     @NotBlank(message = "contactPhoneTwo is mandatory")
     private String contactPhoneTwo;
+
+
+    @Schema(
+            name = "language",
+            description = "language of the post. The default is english",
+            requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+            type = "String"
+    )
+    private String language;
 }

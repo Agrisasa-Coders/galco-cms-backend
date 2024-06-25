@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Data
 @Entity
-public class Service {
+public class Service  extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,6 +21,9 @@ public class Service {
     private String description;
 
     private String photoUrl;
+
+    @Column(nullable = false)
+    private String language = "english";
 
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(name = "service_technology", joinColumns = {

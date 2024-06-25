@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class KnowledgeBase extends SuperEntity {
+public class KnowledgeBase extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,6 +15,14 @@ public class KnowledgeBase extends SuperEntity {
 
     @Column(columnDefinition = "TEXT")
     private String description;
+
+    @Column(columnDefinition = "TEXT")
+    private String introduction;
+
+    private String subTitle;
+
+    @Column(nullable = false)
+    private String language = "english";
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "service_id")

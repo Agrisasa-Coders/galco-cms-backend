@@ -1,25 +1,24 @@
 package com.gapco.backend.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
 @Data
 @MappedSuperclass
-public class SuperEntity {
+@EntityListeners(AuditingEntityListener.class)
+public abstract class Auditable {
 
     @CreatedDate
-    @JsonIgnore
-    @Column(name = "created_at")
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @JsonIgnore
     @Column(name = "update_at")
     private LocalDateTime updatedAt;
 }

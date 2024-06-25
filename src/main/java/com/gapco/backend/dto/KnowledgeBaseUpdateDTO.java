@@ -34,6 +34,26 @@ public class KnowledgeBaseUpdateDTO {
 
 
     @Schema(
+            name = "subTitle",
+            description = "subTitle of the blog",
+            requiredMode = Schema.RequiredMode.REQUIRED,
+            type = "String"
+    )
+    @NotBlank(message = "subTitle is mandatory")
+    private String subTitle;
+
+
+    @Schema(
+            name = "introduction",
+            description = "introduction of the blog post",
+            requiredMode = Schema.RequiredMode.REQUIRED,
+            type = "String"
+    )
+    @NotBlank(message = "introduction is mandatory")
+    private String introduction;
+
+
+    @Schema(
             name = "photo",
             description = "This is the picture/photo of the service",
             requiredMode = Schema.RequiredMode.NOT_REQUIRED
@@ -49,4 +69,12 @@ public class KnowledgeBaseUpdateDTO {
     )
     @NotBlank(message = "description is mandatory")
     private String description;
+
+    @Schema(
+            name = "language",
+            description = "language of the knowledgeBase post. The default is english",
+            requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+            type = "String"
+    )
+    private String language;
 }

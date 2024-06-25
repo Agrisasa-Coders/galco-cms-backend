@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Institution extends SuperEntity{
+public class Institution extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,4 +45,7 @@ public class Institution extends SuperEntity{
     private String vision;
     private String mission;
     private String foundedYear;
+
+    @Column(nullable = false)
+    private String language = "english";
 }

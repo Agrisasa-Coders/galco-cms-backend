@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "roles")
-public class Role extends SuperEntity{
+public class Role extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

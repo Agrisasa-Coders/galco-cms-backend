@@ -46,4 +46,13 @@ public class ServiceUpdateDTO {
             type = "Array"
     )
     private Long[] technologies;
+
+
+    @Schema(
+            name = "language",
+            description = "language for the service post. The default is english",
+            requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+            type = "String"
+    )
+    private String language;
 }

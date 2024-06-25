@@ -8,6 +8,7 @@ import com.gapco.backend.repository.ServiceRepository;
 import com.gapco.backend.repository.TechnologyRepository;
 import com.gapco.backend.response.CustomApiResponse;
 import com.gapco.backend.util.AppConstants;
+import com.gapco.backend.util.Helper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
@@ -41,8 +43,11 @@ public class ServiceImpl {
                 serviceCreateDTO.getPhoto().getOriginalFilename()
         );
 
-        newService.setPhotoUrl(filePath);
+        newService.setPhotoUrl(Helper.getUploadedPath(filePath));
 
+        if(!(serviceCreateDTO.getLanguage() == null || Objects.equals(serviceCreateDTO.getLanguage(), ""))){
+            newService.setLanguage(serviceCreateDTO.getLanguage());
+        }
 
         //Setting technologies
         if(serviceCreateDTO.getTechnologies() !=null && serviceCreateDTO.getTechnologies().length > 0){
@@ -119,10 +124,13 @@ public class ServiceImpl {
                         serviceUpdateDTO.getPhoto().getOriginalFilename()
                 );
 
-                foundService.setPhotoUrl(filePath);
+                foundService.setPhotoUrl(Helper.getUploadedPath(filePath));
             }
 
 
+            if(!(serviceUpdateDTO.getLanguage() == null || Objects.equals(serviceUpdateDTO.getLanguage(), ""))){
+                foundService.setLanguage(serviceUpdateDTO.getLanguage());
+            }
 
             //Setting technologies
             if(serviceUpdateDTO.getTechnologies() !=null && serviceUpdateDTO.getTechnologies().length > 0){

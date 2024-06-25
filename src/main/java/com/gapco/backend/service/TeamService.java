@@ -8,6 +8,7 @@ import com.gapco.backend.exception.EntityNotFoundException;
 import com.gapco.backend.repository.TeamRepository;
 import com.gapco.backend.response.CustomApiResponse;
 import com.gapco.backend.util.AppConstants;
+import com.gapco.backend.util.Helper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -39,7 +40,11 @@ public class TeamService {
                 teamMemberCreateDTO.getPhoto().getOriginalFilename()
         );
 
-        newTeamMember.setPhotoUrl(filePath);
+        newTeamMember.setPhotoUrl(Helper.getUploadedPath(filePath));
+
+        if(!(teamMemberCreateDTO.getLanguage() == null || teamMemberCreateDTO.getLanguage() == "")){
+            newTeamMember.setLanguage(teamMemberCreateDTO.getLanguage());
+        }
 
         teamRepository.save(newTeamMember);
 
@@ -109,7 +114,11 @@ public class TeamService {
                         teamMemberUpdateDTO.getPhoto().getOriginalFilename()
                 );
 
-                foundTeamMember.setPhotoUrl(filePath);
+                foundTeamMember.setPhotoUrl(Helper.getUploadedPath(filePath));
+            }
+
+            if(!(teamMemberUpdateDTO.getLanguage() == null || teamMemberUpdateDTO.getLanguage() == "")){
+                foundTeamMember.setLanguage(teamMemberUpdateDTO.getLanguage());
             }
 
             teamRepository.save(foundTeamMember);

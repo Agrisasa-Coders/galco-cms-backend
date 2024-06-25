@@ -9,6 +9,7 @@ import com.gapco.backend.repository.KnowledgeBaseRepository;
 import com.gapco.backend.repository.ServiceRepository;
 import com.gapco.backend.response.CustomApiResponse;
 import com.gapco.backend.util.AppConstants;
+import com.gapco.backend.util.Helper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -37,6 +39,8 @@ public class KnowledgeBaseService {
             KnowledgeBase newKnowledgeBase = new KnowledgeBase();
             newKnowledgeBase.setDescription(knowledge.getDescription());
             newKnowledgeBase.setTitle(knowledge.getTitle());
+            newKnowledgeBase.setSubTitle(knowledge.getSubTitle());
+            newKnowledgeBase.setIntroduction(knowledge.getIntroduction());
 
             com.gapco.backend.entity.Service service = serviceOptional.get();
 
@@ -47,7 +51,11 @@ public class KnowledgeBaseService {
                     knowledge.getPhoto().getOriginalFilename()
             );
 
-            newKnowledgeBase.setPhotoUrl(filePath);
+            newKnowledgeBase.setPhotoUrl(Helper.getUploadedPath(filePath));
+
+            if(!(knowledge.getLanguage() == null || Objects.equals(knowledge.getLanguage(), ""))){
+                newKnowledgeBase.setLanguage(knowledge.getLanguage());
+            }
 
             knowledgeBaseRepository.save(newKnowledgeBase);
 
@@ -115,6 +123,8 @@ public class KnowledgeBaseService {
                 KnowledgeBase updatedKnowledge = findKnowledgeBase.get();
                 updatedKnowledge.setDescription(knowledgeBase.getDescription());
                 updatedKnowledge.setTitle(knowledgeBase.getTitle());
+                updatedKnowledge.setSubTitle(knowledgeBase.getSubTitle());
+                updatedKnowledge.setIntroduction(knowledgeBase.getIntroduction());
 
                 com.gapco.backend.entity.Service service = serviceOptional.get();
 
@@ -127,9 +137,12 @@ public class KnowledgeBaseService {
                             knowledgeBase.getPhoto().getOriginalFilename()
                     );
 
-                    updatedKnowledge.setPhotoUrl(filePath);
+                    updatedKnowledge.setPhotoUrl(Helper.getUploadedPath(filePath));
                 }
 
+                if(!(knowledgeBase.getLanguage() == null || Objects.equals(knowledgeBase.getLanguage(), ""))){
+                    updatedKnowledge.setLanguage(knowledgeBase.getLanguage());
+                }
 
                 knowledgeBaseRepository.save(updatedKnowledge);
 

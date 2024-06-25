@@ -9,8 +9,10 @@ import com.gapco.backend.repository.BlogRepository;
 import com.gapco.backend.repository.ServiceRepository;
 import com.gapco.backend.response.CustomApiResponse;
 import com.gapco.backend.util.AppConstants;
+import com.gapco.backend.util.Helper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.helpers.Util;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -39,6 +41,8 @@ public class BlogService {
             newBlog.setDescription(blog.getDescription());
             newBlog.setTitle(blog.getTitle());
             newBlog.setQuote(blog.getQuote());
+            newBlog.setSubTitle(blog.getSubTitle());
+            newBlog.setIntroduction(blog.getIntroduction());
 
             com.gapco.backend.entity.Service service = serviceOptional.get();
 
@@ -49,7 +53,11 @@ public class BlogService {
                     blog.getPhoto().getOriginalFilename()
             );
 
-            newBlog.setPhotoUrl(filePath);
+            newBlog.setPhotoUrl(Helper.getUploadedPath(filePath));
+
+            if(!(blog.getLanguage() == null || blog.getLanguage() == "")){
+                newBlog.setLanguage(blog.getLanguage());
+            }
 
             blogRepository.save(newBlog);
 
@@ -117,6 +125,8 @@ public class BlogService {
                 updatedBlogPost.setDescription(blog.getDescription());
                 updatedBlogPost.setTitle(blog.getTitle());
                 updatedBlogPost.setQuote(blog.getQuote());
+                updatedBlogPost.setSubTitle(blog.getSubTitle());
+                updatedBlogPost.setIntroduction(blog.getIntroduction());
 
                 com.gapco.backend.entity.Service service = serviceOptional.get();
 
@@ -129,7 +139,12 @@ public class BlogService {
                             blog.getPhoto().getOriginalFilename()
                     );
 
-                    updatedBlogPost.setPhotoUrl(filePath);
+                    updatedBlogPost.setPhotoUrl(Helper.getUploadedPath(filePath));
+                }
+
+
+                if(!(blog.getLanguage() == null || blog.getLanguage() == "")){
+                    updatedBlogPost.setLanguage(blog.getLanguage());
                 }
 
                 blogRepository.save(updatedBlogPost);

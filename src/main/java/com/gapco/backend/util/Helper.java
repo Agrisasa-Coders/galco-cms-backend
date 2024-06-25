@@ -24,6 +24,23 @@ public class Helper {
 
     }
 
+    public static String getUploadedPath(String filePath){
+
+        String uploadsPath1 = "/uploads";   //for linux
+        String uploadsPath2 = "\\uploads";  //for windows
+
+        int startIndex = filePath.indexOf(uploadsPath1);
+
+        String result;
+
+        if (startIndex == -1) {
+            startIndex = filePath.indexOf(uploadsPath2);
+        }
+        result = filePath.substring(startIndex);
+
+        return result;
+    };
+
 
 
     public static String getDateInString(LocalDateTime localDateTime){

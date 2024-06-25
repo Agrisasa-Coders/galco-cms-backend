@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "permissions")
-public class Permission extends SuperEntity{
+public class Permission extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

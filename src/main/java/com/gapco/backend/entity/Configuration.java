@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "configurations")
-public class Configuration extends SuperEntity{
+public class Configuration extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

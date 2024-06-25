@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Blog {
+public class Blog extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,8 +15,17 @@ public class Blog {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+
+    @Column(columnDefinition = "TEXT")
+    private String introduction;
+
+    private String subTitle;
+
     private String quote;
     private String photoUrl;
+
+    @Column(nullable = false)
+    private String language = "english";
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "service_id")

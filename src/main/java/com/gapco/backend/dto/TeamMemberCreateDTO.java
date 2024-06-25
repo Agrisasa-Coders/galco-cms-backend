@@ -39,4 +39,13 @@ public class TeamMemberCreateDTO {
     )
     @NotEmpty(message = "position is mandatory")
     private String position;
+
+
+    @Schema(
+            name = "language",
+            description = "language for the post. The default is english",
+            requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+            type = "String"
+    )
+    private String language;
 }

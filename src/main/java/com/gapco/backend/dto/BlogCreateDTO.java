@@ -35,6 +35,26 @@ public class BlogCreateDTO {
 
 
     @Schema(
+            name = "subTitle",
+            description = "subTitle of the blog",
+            requiredMode = Schema.RequiredMode.REQUIRED,
+            type = "String"
+    )
+    @NotBlank(message = "subTitle is mandatory")
+    private String subTitle;
+
+
+    @Schema(
+            name = "introduction",
+            description = "introduction of the blog post",
+            requiredMode = Schema.RequiredMode.REQUIRED,
+            type = "String"
+    )
+    @NotBlank(message = "introduction is mandatory")
+    private String introduction;
+
+
+    @Schema(
             name = "photo",
             description = "This is the picture/photo of the service",
             requiredMode = Schema.RequiredMode.REQUIRED
@@ -61,4 +81,13 @@ public class BlogCreateDTO {
     )
     @NotBlank(message = "quote is mandatory")
     private String quote;
+
+
+    @Schema(
+            name = "language",
+            description = "language of the blog post. The default is english",
+            requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+            type = "String"
+    )
+    private String language;
 }

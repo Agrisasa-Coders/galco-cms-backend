@@ -15,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -30,6 +31,10 @@ public class TechnologyService {
         Technology newTechnology = new Technology();
         newTechnology.setDescription(technology.getDescription());
         newTechnology.setName(technology.getName());
+
+        if(!(technology.getLanguage() == null || Objects.equals(technology.getLanguage(), ""))){
+            newTechnology.setLanguage(technology.getLanguage());
+        }
 
         technologyRepository.save(newTechnology);
 
@@ -91,6 +96,11 @@ public class TechnologyService {
             Technology updatedTechnology = findTechnology.get();
             updatedTechnology.setDescription(technology.getDescription());
             updatedTechnology.setName(technology.getName());
+
+
+            if(!(technology.getLanguage() == null || Objects.equals(technology.getLanguage(), ""))){
+                updatedTechnology.setLanguage(technology.getLanguage());
+            }
 
             technologyRepository.save(updatedTechnology);
 
