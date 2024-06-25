@@ -71,14 +71,16 @@ public class KnowledgeBaseService {
     }
 
 
-    public CustomApiResponse<Object> getAll(int page, int size, String sortBy, String sortDir) {
+    public CustomApiResponse<Object> getAll(int page, int size, String sortBy, String sortDir,String language) {
 
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
 
         Pageable pageable = PageRequest.of(page,size,sort);
 
-        Page<KnowledgeBase> pageableKnowledgeBases = knowledgeBaseRepository.findAll(pageable);
+//        Page<KnowledgeBase> pageableKnowledgeBases = knowledgeBaseRepository.findAll(pageable);
+
+        Page<KnowledgeBase> pageableKnowledgeBases = knowledgeBaseRepository.getAll(language,pageable);
 
         List<KnowledgeBase> knowledgeBases = pageableKnowledgeBases.getContent();
 

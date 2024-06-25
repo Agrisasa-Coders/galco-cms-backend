@@ -1,8 +1,5 @@
 package com.gapco.backend.util;
 
-import io.swagger.v3.oas.annotations.Parameter;
-import org.springframework.web.bind.annotation.RequestParam;
-
 public class AppConstants {
 
     public static final String INSTITUTION_NAME = "ZFF";
@@ -30,11 +27,13 @@ public class AppConstants {
     public static final String DEFAULT_PAGE_SIZE = "10";
     public static final String DEFAULT_SORT_BY = "id";
     public static final String DEFAULT_SORT_DIRECTION = "DESC";
+    public static final String DEFAULT_LANGUAGE = "english";
 
     public static final String PAGE_NUMBER_DESCRIPTION = "Page number to display. Default is 0";
     public static final String PAGE_SIZE_DESCRIPTION = "Size of items for the page. Default is 10";
     public static final String SORT_BY_DESCRIPTION = "Column for sorting. Default is Id";
     public static final String SORT_DIRECTION_DESCRIPTION = "Sort direction. Default is DESC";
+    public static final String LANGUAGE_DESCRIPTION = "Language";
 
 
     //paths

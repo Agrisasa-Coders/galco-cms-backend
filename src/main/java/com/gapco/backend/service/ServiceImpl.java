@@ -66,14 +66,16 @@ public class ServiceImpl {
 
 
 
-    public CustomApiResponse<Object> getAll(int page, int size, String sortBy, String sortDir) {
+    public CustomApiResponse<Object> getAll(int page, int size, String sortBy, String sortDir,String language) {
 
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
 
         Pageable pageable = PageRequest.of(page,size,sort);
 
-        Page<com.gapco.backend.entity.Service> pageableServices = serviceRepository.findAll(pageable);
+//        Page<com.gapco.backend.entity.Service> pageableServices = serviceRepository.findAll(pageable);
+
+        Page<com.gapco.backend.entity.Service> pageableServices = serviceRepository.getAll(language,pageable);
 
         List<com.gapco.backend.entity.Service> services = pageableServices.getContent();
 

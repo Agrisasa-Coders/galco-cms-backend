@@ -58,14 +58,16 @@ public class TeamService {
 
 
 
-    public CustomApiResponse<Object> getAll(int page, int size, String sortBy, String sortDir) {
+    public CustomApiResponse<Object> getAll(int page, int size, String sortBy, String sortDir,String language) {
 
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
 
         Pageable pageable = PageRequest.of(page,size,sort);
 
-        Page<Team> pageableTeamMembers = teamRepository.findAll(pageable);
+//        Page<Team> pageableTeamMembers = teamRepository.findAll(pageable);
+
+        Page<Team> pageableTeamMembers = teamRepository.getAll(language,pageable);
 
         List<Team> teams = pageableTeamMembers.getContent();
 
