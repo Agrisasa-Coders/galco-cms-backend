@@ -45,7 +45,7 @@ public class CustomerCreateDTO {
             type = "int"
     )
     @NotNull(message = "rating")
-    private int rating;
+    private Integer rating;
 
     @Schema(
             name = "photo",

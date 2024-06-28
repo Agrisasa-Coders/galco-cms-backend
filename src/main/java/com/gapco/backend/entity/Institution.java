@@ -45,4 +45,9 @@ public class Institution extends Auditable {
     private String vision;
     private String mission;
     private String foundedYear;
+
+    private int wareHouses;
+    private int deliveredPackages;
+    private int satisfiedClients;
+    private int ownedVehicles;
 }

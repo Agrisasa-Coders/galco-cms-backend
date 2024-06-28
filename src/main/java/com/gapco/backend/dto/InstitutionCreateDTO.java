@@ -144,4 +144,37 @@ public class InstitutionCreateDTO {
             type = "String"
     )
     private String language;
+
+    @Schema(
+            name = "wareHouses",
+            description = "Number of company's warehouses",
+            requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+            type = "int"
+    )
+    private Integer wareHouses;
+
+    @Schema(
+            name = "wareHouses",
+            description = "Total of company's delivered packages",
+            requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+            type = "int"
+    )
+    private Integer deliveredPackages;
+
+    @Schema(
+            name = "wareHouses",
+            description = "Number of company's satisfied clients",
+            requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+            type = "int"
+    )
+    private Integer satisfiedClients;
+
+
+    @Schema(
+            name = "wareHouses",
+            description = "Number of company's owned vehicles",
+            requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+            type = "int"
+    )
+    private Integer ownedVehicles;
 }

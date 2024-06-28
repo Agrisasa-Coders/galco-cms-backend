@@ -70,6 +70,10 @@ public class InstitutionServiceImpl implements InstitutionService{
             newInstitution.setBriefHistory(institution.getBriefHistory());
             newInstitution.setVision(institution.getVision());
             newInstitution.setMission(institution.getMission());
+            newInstitution.setWareHouses(institution.getWareHouses());
+            newInstitution.setSatisfiedClients(institution.getSatisfiedClients());
+            newInstitution.setDeliveredPackages(institution.getDeliveredPackages());
+            newInstitution.setOwnedVehicles(institution.getOwnedVehicles());
 
             if(!(institution.getLanguage() == null || institution.getLanguage() == "")){
                 newInstitution.setLanguage(institution.getLanguage());
@@ -111,6 +115,10 @@ public class InstitutionServiceImpl implements InstitutionService{
             institution.setFoundedYear(updatedInstitution.getFoundedYear());
             institution.setMission(updatedInstitution.getMission());
             institution.setVision(updatedInstitution.getVision());
+            institution.setWareHouses(updatedInstitution.getWareHouses());
+            institution.setSatisfiedClients(updatedInstitution.getSatisfiedClients());
+            institution.setDeliveredPackages(updatedInstitution.getDeliveredPackages());
+            institution.setOwnedVehicles(updatedInstitution.getOwnedVehicles());
 
 
             if(!(updatedInstitution.getLanguage() == null || updatedInstitution.getLanguage() == "")){
