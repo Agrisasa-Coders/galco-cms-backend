@@ -5,12 +5,16 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Team extends Auditable {
+public class Customer extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String fullName;
-    private String position;
+    private String companyName;
+
+    @Column(columnDefinition = "TEXT")
+    private String comments;
     private String photoUrl;
+    private int rating;
 }

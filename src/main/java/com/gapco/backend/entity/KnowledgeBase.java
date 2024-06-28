@@ -21,9 +21,6 @@ public class KnowledgeBase extends Auditable {
 
     private String subTitle;
 
-    @Column(nullable = false)
-    private String language = "english";
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "service_id")
     private Service service;

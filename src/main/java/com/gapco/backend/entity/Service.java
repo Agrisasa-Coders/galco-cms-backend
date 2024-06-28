@@ -22,9 +22,6 @@ public class Service  extends Auditable {
 
     private String photoUrl;
 
-    @Column(nullable = false)
-    private String language = "english";
-
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(name = "service_technology", joinColumns = {
             @JoinColumn(name="service_id",referencedColumnName = "id")},inverseJoinColumns = {

@@ -21,4 +21,7 @@ public abstract class Auditable {
     @LastModifiedDate
     @Column(name = "update_at")
     private LocalDateTime updatedAt;
+
+    @Column(nullable = false)
+    private String language = "english";
 }

@@ -24,9 +24,6 @@ public class Blog extends Auditable {
     private String quote;
     private String photoUrl;
 
-    @Column(nullable = false)
-    private String language = "english";
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "service_id")
     private Service service;

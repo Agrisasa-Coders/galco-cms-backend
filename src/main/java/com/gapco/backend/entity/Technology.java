@@ -13,9 +13,6 @@ public class Technology  extends Auditable {
 
     private String name;
 
-    @Column(nullable = false)
-    private String language = "english";
-
     @Column(columnDefinition="TEXT")
     private String description;
 }

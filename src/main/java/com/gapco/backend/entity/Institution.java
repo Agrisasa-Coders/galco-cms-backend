@@ -45,7 +45,4 @@ public class Institution extends Auditable {
     private String vision;
     private String mission;
     private String foundedYear;
-
-    @Column(nullable = false)
-    private String language = "english";
 }
