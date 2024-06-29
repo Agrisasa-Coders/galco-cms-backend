@@ -7,6 +7,7 @@ import com.gapco.backend.repository.InstitutionRepository;
 import com.gapco.backend.response.CustomApiResponse;
 import com.gapco.backend.entity.Institution;
 import com.gapco.backend.util.AppConstants;
+import com.gapco.backend.util.Helper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,7 @@ import java.util.Optional;
 public class InstitutionServiceImpl implements InstitutionService{
 
     private final InstitutionRepository institutionRepository;
+    private final StorageService storageService;
 
     @Override
     public CustomApiResponse<Object> createInstitution(InstitutionCreateDTO institution) {
@@ -75,6 +77,19 @@ public class InstitutionServiceImpl implements InstitutionService{
             newInstitution.setDeliveredPackages(institution.getDeliveredPackages());
             newInstitution.setOwnedVehicles(institution.getOwnedVehicles());
 
+            newInstitution.setCeoFullName(institution.getCeoFullName());
+            newInstitution.setCeoWord(institution.getCeoWord());
+
+            if(institution.getCeoPhoto() != null){
+
+                String filePath = storageService.storeFileToFileSystem(
+                        institution.getCeoPhoto(),
+                        institution.getCeoPhoto().getOriginalFilename()
+                );
+
+                newInstitution.setCeoPhotoUrl(Helper.getUploadedPath(filePath));
+            }
+
             if(!(institution.getLanguage() == null || institution.getLanguage() == "")){
                 newInstitution.setLanguage(institution.getLanguage());
             }
@@ -119,6 +134,19 @@ public class InstitutionServiceImpl implements InstitutionService{
             institution.setSatisfiedClients(updatedInstitution.getSatisfiedClients());
             institution.setDeliveredPackages(updatedInstitution.getDeliveredPackages());
             institution.setOwnedVehicles(updatedInstitution.getOwnedVehicles());
+            institution.setCeoFullName(updatedInstitution.getCeoFullName());
+            institution.setCeoWord(updatedInstitution.getCeoWord());
+
+            if(updatedInstitution.getCeoPhoto() != null){
+
+                String filePath = storageService.storeFileToFileSystem(
+                        updatedInstitution.getCeoPhoto(),
+                        updatedInstitution.getCeoPhoto().getOriginalFilename()
+                );
+
+                institution.setCeoPhotoUrl(Helper.getUploadedPath(filePath));
+            }
+
 
 
             if(!(updatedInstitution.getLanguage() == null || updatedInstitution.getLanguage() == "")){

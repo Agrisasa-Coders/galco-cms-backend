@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Data
@@ -177,4 +178,29 @@ public class InstitutionCreateDTO {
             type = "int"
     )
     private Integer ownedVehicles;
+
+
+    @Schema(
+            name = "ceoWord",
+            description = "Word from the Company's CEO",
+            requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+            type = "String"
+    )
+    private String ceoWord;
+
+
+    @Schema(
+            name = "ceoFullName",
+            description = "FullName of the company's CEO",
+            requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+            type = "String"
+    )
+    private String ceoFullName;
+
+    @Schema(
+            name = "ceoPhoto",
+            description = "This is the picture/photo of the company's CEO",
+            requiredMode = Schema.RequiredMode.NOT_REQUIRED
+    )
+    private MultipartFile ceoPhoto;
 }

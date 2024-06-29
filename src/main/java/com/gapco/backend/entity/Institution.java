@@ -50,4 +50,8 @@ public class Institution extends Auditable {
     private int deliveredPackages;
     private int satisfiedClients;
     private int ownedVehicles;
+
+    private String ceoPhotoUrl;
+    private String ceoFullName;
+    private String ceoWord;
 }
