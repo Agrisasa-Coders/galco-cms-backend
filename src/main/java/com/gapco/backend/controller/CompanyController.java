@@ -35,7 +35,7 @@ public class CompanyController {
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
     @PostMapping
-    public ResponseEntity<CustomApiResponse<Object>> createCompany(@Valid @ModelAttribute CompanyCreateDTO companyCreateDTO){
+    public ResponseEntity<CustomApiResponse<Object>> createCompany(@ModelAttribute CompanyCreateDTO companyCreateDTO){
         log.info("CompanyController::createCompany Execution started");
         return new ResponseEntity<>(companyService.createCompany(companyCreateDTO), HttpStatus.OK);
     }
