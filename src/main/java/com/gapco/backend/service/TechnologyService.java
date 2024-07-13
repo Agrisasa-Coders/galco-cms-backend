@@ -1,11 +1,13 @@
 package com.gapco.backend.service;
 
 
+import com.gapco.backend.dto.TechnologyCreateDTO;
 import com.gapco.backend.entity.Technology;
 import com.gapco.backend.exception.EntityNotFoundException;
 import com.gapco.backend.repository.TechnologyRepository;
 import com.gapco.backend.response.CustomApiResponse;
 import com.gapco.backend.util.AppConstants;
+import com.gapco.backend.util.Helper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -23,14 +25,25 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class TechnologyService {
     private final TechnologyRepository technologyRepository;
+    private final StorageService storageService;
 
 
-    public CustomApiResponse<Object> addTechnology(Technology technology){
+    public CustomApiResponse<Object> addTechnology(TechnologyCreateDTO technology){
         log.info("TechnologyService::addTechnology Execution started");
 
         Technology newTechnology = new Technology();
         newTechnology.setDescription(technology.getDescription());
         newTechnology.setName(technology.getName());
+
+        if(technology.getPhoto() != null){
+
+            String filePath = storageService.storeFileToFileSystem(
+                    technology.getPhoto(),
+                    technology.getPhoto().getOriginalFilename()
+            );
+
+            newTechnology.setPhotoUrl(Helper.getUploadedPath(filePath));
+        }
 
         if(!(technology.getLanguage() == null || Objects.equals(technology.getLanguage(), ""))){
             newTechnology.setLanguage(technology.getLanguage());
@@ -89,7 +102,7 @@ public class TechnologyService {
     }
 
 
-    public CustomApiResponse<Object> update(Long id, Technology technology) {
+    public CustomApiResponse<Object> update(Long id, TechnologyCreateDTO technology) {
 
         Optional<Technology> findTechnology = technologyRepository.findById(id);
 
@@ -99,6 +112,16 @@ public class TechnologyService {
             updatedTechnology.setDescription(technology.getDescription());
             updatedTechnology.setName(technology.getName());
 
+
+            if(technology.getPhoto() != null){
+
+                String filePath = storageService.storeFileToFileSystem(
+                        technology.getPhoto(),
+                        technology.getPhoto().getOriginalFilename()
+                );
+
+                updatedTechnology.setPhotoUrl(Helper.getUploadedPath(filePath));
+            }
 
             if(!(technology.getLanguage() == null || Objects.equals(technology.getLanguage(), ""))){
                 updatedTechnology.setLanguage(technology.getLanguage());

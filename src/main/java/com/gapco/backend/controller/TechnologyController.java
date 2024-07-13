@@ -2,6 +2,7 @@ package com.gapco.backend.controller;
 
 
 
+import com.gapco.backend.dto.TechnologyCreateDTO;
 import com.gapco.backend.entity.Technology;
 import com.gapco.backend.response.CustomApiResponse;
 import com.gapco.backend.service.TechnologyService;
@@ -33,7 +34,7 @@ public class TechnologyController {
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
     @PostMapping
-    public ResponseEntity<CustomApiResponse<Object>> AddTechnology(@Valid @RequestBody Technology technology){
+    public ResponseEntity<CustomApiResponse<Object>> AddTechnology(@Valid @ModelAttribute TechnologyCreateDTO technology){
         log.info("TechnologyController::AddTechnology Execution started");
         return new ResponseEntity<>(technologyService.addTechnology(technology), HttpStatus.OK);
     }
@@ -74,7 +75,7 @@ public class TechnologyController {
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
     @PutMapping("/{id}")
     public ResponseEntity<CustomApiResponse<Object>> update(
-            @Parameter(description = "Id of the technology") @PathVariable Long id, @RequestBody Technology technology
+            @Parameter(description = "Id of the technology") @PathVariable Long id, @ModelAttribute TechnologyCreateDTO technology
     ){
         log.info("TechnologyController::update Execution started");
         return new ResponseEntity<>(technologyService.update(id,technology), HttpStatus.OK);

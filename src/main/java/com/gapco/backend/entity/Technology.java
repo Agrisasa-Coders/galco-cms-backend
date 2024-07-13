@@ -15,4 +15,6 @@ public class Technology  extends Auditable {
 
     @Column(columnDefinition="TEXT")
     private String description;
+
+    private String photoUrl;
 }
