@@ -4,16 +4,20 @@ package com.gapco.backend.config;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
-
+@Slf4j
 public class CorsFilter implements Filter {
 
     @Override

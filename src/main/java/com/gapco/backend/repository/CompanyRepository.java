@@ -12,8 +12,8 @@ public interface CompanyRepository extends JpaRepository<Company,Long> {
     Optional<Company> findByInstitutionId(Integer institutionId);
     Optional<Company> findByName(String name);
 
-    @Query(value = "SELECT max(institutionId) FROM Institution")
-    int getMaxInstitutionId();
+    @Query(value = "SELECT max(institutionId) FROM Company")
+    Integer getMaxInstitutionId();
 
     @Query("SELECT c FROM Company c WHERE c.language = :language")
     Page<Company> getAll(String language, Pageable pageable);

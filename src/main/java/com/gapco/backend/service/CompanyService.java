@@ -50,9 +50,13 @@ public class CompanyService {
 
         }  else { // Institution is not a super institution
 
-            int institutionId = companyRepository.getMaxInstitutionId();
+            Integer institutionId = companyRepository.getMaxInstitutionId();
 
-            newCompany.setInstitutionId(institutionId + 100);
+            if(institutionId != null){
+                newCompany.setInstitutionId(institutionId + 100);
+            } else {
+                newCompany.setInstitutionId(100);
+            }
 
         }
 
@@ -72,6 +76,7 @@ public class CompanyService {
             newCompany.setBriefHistory(companyCreateDTO.getBriefHistory());
             newCompany.setVision(companyCreateDTO.getVision());
             newCompany.setMission(companyCreateDTO.getMission());
+
             newCompany.setWareHouses(companyCreateDTO.getWareHouses());
             newCompany.setSatisfiedClients(companyCreateDTO.getSatisfiedClients());
             newCompany.setDeliveredPackages(companyCreateDTO.getDeliveredPackages());
@@ -132,10 +137,22 @@ public class CompanyService {
             foundedCompany.setBriefHistory(companyCreateDTO.getBriefHistory());
             foundedCompany.setVision(companyCreateDTO.getVision());
             foundedCompany.setMission(companyCreateDTO.getMission());
-            foundedCompany.setWareHouses(companyCreateDTO.getWareHouses());
-            foundedCompany.setSatisfiedClients(companyCreateDTO.getSatisfiedClients());
-            foundedCompany.setDeliveredPackages(companyCreateDTO.getDeliveredPackages());
-            foundedCompany.setOwnedVehicles(companyCreateDTO.getOwnedVehicles());
+
+            if(companyCreateDTO.getWareHouses() != null){
+                foundedCompany.setWareHouses(companyCreateDTO.getWareHouses());
+            }
+
+            if(companyCreateDTO.getSatisfiedClients() !=null) {
+                foundedCompany.setSatisfiedClients(companyCreateDTO.getSatisfiedClients());
+            }
+
+            if(companyCreateDTO.getDeliveredPackages() != null){
+                foundedCompany.setDeliveredPackages(companyCreateDTO.getDeliveredPackages());
+            }
+
+            if(companyCreateDTO.getOwnedVehicles() != null){
+                foundedCompany.setOwnedVehicles(companyCreateDTO.getOwnedVehicles());
+            }
 
             foundedCompany.setCeoFullName(companyCreateDTO.getCeoFullName());
             foundedCompany.setCeoWord(companyCreateDTO.getCeoWord());
