@@ -34,7 +34,7 @@ public class ServiceController {
             summary = "Create a service"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @PostMapping
+    @PostMapping(consumes = "multipart/form-data")
     public ResponseEntity<CustomApiResponse<Object>> createService(@Valid @ModelAttribute ServiceCreateDTO serviceCreateDTO){
         log.info("ServiceController::createService Execution started");
         return new ResponseEntity<>(service.addService(serviceCreateDTO), HttpStatus.OK);
@@ -75,7 +75,7 @@ public class ServiceController {
             description = "update a service"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}",consumes = "multipart/form-data")
     public ResponseEntity<CustomApiResponse<Object>> update(
             @Parameter(description = "Id of the service") @PathVariable Long id, @ModelAttribute ServiceUpdateDTO serviceUpdateDTO
     ){

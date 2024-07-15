@@ -33,7 +33,7 @@ public class TechnologyController {
             summary = "Add a new technology"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @PostMapping
+    @PostMapping(consumes = "multipart/form-data")
     public ResponseEntity<CustomApiResponse<Object>> AddTechnology(@Valid @ModelAttribute TechnologyCreateDTO technology){
         log.info("TechnologyController::AddTechnology Execution started");
         return new ResponseEntity<>(technologyService.addTechnology(technology), HttpStatus.OK);
@@ -73,7 +73,7 @@ public class TechnologyController {
             description = "update technology"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}",consumes = "multipart/form-data")
     public ResponseEntity<CustomApiResponse<Object>> update(
             @Parameter(description = "Id of the technology") @PathVariable Long id, @ModelAttribute TechnologyCreateDTO technology
     ){

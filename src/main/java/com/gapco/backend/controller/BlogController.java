@@ -3,11 +3,8 @@ package com.gapco.backend.controller;
 
 import com.gapco.backend.dto.BlogCreateDTO;
 import com.gapco.backend.dto.BlogUpdateDTO;
-import com.gapco.backend.dto.KnowledgeBaseCreateDTO;
-import com.gapco.backend.entity.Blog;
 import com.gapco.backend.response.CustomApiResponse;
 import com.gapco.backend.service.BlogService;
-import com.gapco.backend.service.KnowledgeBaseService;
 import com.gapco.backend.util.AppConstants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -36,7 +33,7 @@ public class BlogController {
             summary = "Adding a knowledge base"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @PostMapping
+    @PostMapping(consumes = "multipart/form-data")
     public ResponseEntity<CustomApiResponse<Object>> AddBlogPost(@Valid @ModelAttribute BlogCreateDTO blog){
         log.info("BlogController::AddBlogPost Execution started");
         return new ResponseEntity<>(blogService.addBlogPost(blog), HttpStatus.OK);
@@ -76,7 +73,7 @@ public class BlogController {
             description = "update blog post"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}",consumes = "multipart/form-data")
     public ResponseEntity<CustomApiResponse<Object>> update(
             @Parameter(description = "Id of the blog post") @PathVariable Long id, @ModelAttribute BlogUpdateDTO blog
     ){

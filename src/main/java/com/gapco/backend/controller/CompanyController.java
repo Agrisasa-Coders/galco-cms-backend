@@ -2,7 +2,6 @@ package com.gapco.backend.controller;
 
 
 import com.gapco.backend.dto.CompanyCreateDTO;
-import com.gapco.backend.dto.InstitutionCreateDTO;
 import com.gapco.backend.response.CustomApiResponse;
 import com.gapco.backend.service.CompanyService;
 import com.gapco.backend.util.AppConstants;
@@ -12,7 +11,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -34,9 +32,11 @@ public class CompanyController {
             summary = "Create company"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @PostMapping
+    @PostMapping(consumes = "multipart/form-data")
     public ResponseEntity<CustomApiResponse<Object>> createCompany(@ModelAttribute CompanyCreateDTO companyCreateDTO){
+
         log.info("CompanyController::createCompany Execution started");
+        log.info("CompanyController::createCompany getBody is {}",companyCreateDTO.toString());
         return new ResponseEntity<>(companyService.createCompany(companyCreateDTO), HttpStatus.OK);
     }
 
@@ -45,7 +45,7 @@ public class CompanyController {
             description = "update company"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}",consumes = "multipart/form-data")
     public ResponseEntity<CustomApiResponse<Object>> updateCompany(
             @Parameter(description = "Id of the company") @PathVariable Long id, @ModelAttribute CompanyCreateDTO companyCreateDTO
     ){
