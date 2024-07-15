@@ -32,7 +32,7 @@ public class KnowledgeBaseController {
             summary = "Adding a knowledge base"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @PostMapping(consumes = "multipart/form-data")
+    @PostMapping(consumes = "*/*")
     public ResponseEntity<CustomApiResponse<Object>> AddKnowledgeBase(@Valid @ModelAttribute KnowledgeBaseCreateDTO knowledgeBaseCreateDTO){
         log.info("KnowledgeBaseController::AddKnowledgeBase Execution started");
         return new ResponseEntity<>(knowledgeBaseService.addNewKnowledgeBase(knowledgeBaseCreateDTO), HttpStatus.OK);
@@ -73,7 +73,7 @@ public class KnowledgeBaseController {
             description = "update knowledge base"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @PutMapping(value="/{id}",consumes = "multipart/form-data")
+    @PutMapping(value="/{id}",consumes = "*/*")
     public ResponseEntity<CustomApiResponse<Object>> update(
             @Parameter(description = "Id of the blog post") @PathVariable Long id, @ModelAttribute KnowledgeBaseUpdateDTO knowledgeBaseCreateDTO
     ){

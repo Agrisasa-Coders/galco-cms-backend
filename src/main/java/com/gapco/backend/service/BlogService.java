@@ -2,7 +2,6 @@ package com.gapco.backend.service;
 
 import com.gapco.backend.dto.BlogCreateDTO;
 import com.gapco.backend.dto.BlogUpdateDTO;
-import com.gapco.backend.dto.KnowledgeBaseCreateDTO;
 import com.gapco.backend.entity.Blog;
 import com.gapco.backend.exception.EntityNotFoundException;
 import com.gapco.backend.repository.BlogRepository;
@@ -12,7 +11,6 @@ import com.gapco.backend.util.AppConstants;
 import com.gapco.backend.util.Helper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.helpers.Util;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

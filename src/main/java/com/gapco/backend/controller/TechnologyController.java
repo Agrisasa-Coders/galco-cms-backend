@@ -3,7 +3,6 @@ package com.gapco.backend.controller;
 
 
 import com.gapco.backend.dto.TechnologyCreateDTO;
-import com.gapco.backend.entity.Technology;
 import com.gapco.backend.response.CustomApiResponse;
 import com.gapco.backend.service.TechnologyService;
 import com.gapco.backend.util.AppConstants;
@@ -33,7 +32,7 @@ public class TechnologyController {
             summary = "Add a new technology"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @PostMapping(consumes = "multipart/form-data")
+    @PostMapping(consumes = "*/*")
     public ResponseEntity<CustomApiResponse<Object>> AddTechnology(@Valid @ModelAttribute TechnologyCreateDTO technology){
         log.info("TechnologyController::AddTechnology Execution started");
         return new ResponseEntity<>(technologyService.addTechnology(technology), HttpStatus.OK);
@@ -73,7 +72,7 @@ public class TechnologyController {
             description = "update technology"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @PutMapping(value = "/{id}",consumes = "multipart/form-data")
+    @PutMapping(value = "/{id}",consumes = "*/*")
     public ResponseEntity<CustomApiResponse<Object>> update(
             @Parameter(description = "Id of the technology") @PathVariable Long id, @ModelAttribute TechnologyCreateDTO technology
     ){

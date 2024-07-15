@@ -31,7 +31,7 @@ public class InstitutionController {
             summary = "Create institution"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @PostMapping(consumes = "multipart/form-data")
+    @PostMapping(consumes = "*/*")
     public ResponseEntity<CustomApiResponse<Object>> createInstitution(@Valid @ModelAttribute InstitutionCreateDTO institution){
         log.info("InstitutionController::createInstitution Execution started");
         return new ResponseEntity<>(institutionService.createInstitution(institution), HttpStatus.OK);
@@ -42,7 +42,7 @@ public class InstitutionController {
             description = "update institution"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @PutMapping(value="/{id}",consumes = "multipart/form-data")
+    @PutMapping(value="/{id}",consumes = "*/*")
     public ResponseEntity<CustomApiResponse<Object>> updateInstitution(
             @Parameter(description = "Id of the institution") @PathVariable Long id, @ModelAttribute InstitutionCreateDTO institution
     ){

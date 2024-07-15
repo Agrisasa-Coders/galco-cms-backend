@@ -34,7 +34,7 @@ public class CustomerController {
             summary = "Create a new customer"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @PostMapping(consumes = "multipart/form-data")
+    @PostMapping(consumes = "*/*")
     public ResponseEntity<CustomApiResponse<Object>> addCustomer(@Valid @ModelAttribute CustomerCreateDTO customerCreateDTO){
         log.info("CustomerController::addCustomer Execution started");
         return new ResponseEntity<>(customerService.addCustomer(customerCreateDTO), HttpStatus.OK);
@@ -77,7 +77,7 @@ public class CustomerController {
             description = "update a customer"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @PutMapping(value = "/{id}",consumes = "multipart/form-data")
+    @PutMapping(value = "/{id}",consumes = "*/*")
     public ResponseEntity<CustomApiResponse<Object>> update(
             @Parameter(description = "Id of the customer") @PathVariable Long id, @ModelAttribute CustomerCreateDTO customerCreateDTO
     ){

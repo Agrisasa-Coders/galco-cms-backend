@@ -1,9 +1,9 @@
 package com.gapco.backend.controller;
 
-
-import com.gapco.backend.dto.CompanyCreateDTO;
+import com.gapco.backend.dto.CareerCreateDTO;
+import com.gapco.backend.dto.CareerUpdateDTO;
 import com.gapco.backend.response.CustomApiResponse;
-import com.gapco.backend.service.CompanyService;
+import com.gapco.backend.service.CareerService;
 import com.gapco.backend.util.AppConstants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -18,68 +18,67 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping(AppConstants.BASE_URI+"/company")
-@Tag(name = "CompanyController", description = "Operations for company management")
-public class CompanyController {
+@RequestMapping(AppConstants.BASE_URI+"/career")
+@Tag(name = "CareerController", description = "Operations for career management")
+public class CareerController {
 
-
-    private final CompanyService companyService;
+    private final CareerService careerService;
 
     @Operation(
-            summary = "Create company"
+            summary = "Create a career post"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
     @PostMapping(consumes = "*/*")
-    public ResponseEntity<CustomApiResponse<Object>> createCompany(@ModelAttribute CompanyCreateDTO companyCreateDTO){
+    public ResponseEntity<CustomApiResponse<Object>> createCareerPost(@ModelAttribute CareerCreateDTO careerCreateDTO){
 
-        log.info("CompanyController::createCompany Execution started");
-        log.info("CompanyController::createCompany getBody is {}",companyCreateDTO.toString());
-        return new ResponseEntity<>(companyService.createCompany(companyCreateDTO), HttpStatus.OK);
+        log.info("CareerController::createCareerPost Execution started");
+        return new ResponseEntity<>(careerService.addCareerPost(careerCreateDTO), HttpStatus.OK);
     }
 
     @Operation(
-            summary = "update company",
-            description = "update company"
+            summary = "update career",
+            description = "update career"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
     @PutMapping(value = "/{id}",consumes = "*/*")
-    public ResponseEntity<CustomApiResponse<Object>> updateCompany(
-            @Parameter(description = "Id of the company") @PathVariable Long id, @ModelAttribute CompanyCreateDTO companyCreateDTO
+    public ResponseEntity<CustomApiResponse<Object>> updateCareer(
+            @Parameter(description = "Id of the career") @PathVariable Long id, @ModelAttribute CareerUpdateDTO careerUpdateDTO
     ){
-        log.info("CompanyController::updateCompany Execution started");
-        return new ResponseEntity<>(companyService.updateCompany(id,companyCreateDTO), HttpStatus.OK);
+        log.info("CareerController::updateCareer Execution started");
+        return new ResponseEntity<>(careerService.updateCareerPost(id,careerUpdateDTO), HttpStatus.OK);
     }
 
-
     @Operation(
-            summary = "get company details"
+            summary = "get career details"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
     @GetMapping("/{id}")
-    public ResponseEntity<CustomApiResponse<Object>> getCompanyDetails(
-            @Parameter(description = "Id of the company") @PathVariable Long id
+    public ResponseEntity<CustomApiResponse<Object>> getCareerDetails(
+            @Parameter(description = "Id of the career") @PathVariable Long id
     ){
-        log.info("CompanyController::company Execution started");
-        return new ResponseEntity<>(companyService.getCompany(id), HttpStatus.OK);
+        log.info("CareerController::getCareerDetails Execution started");
+        return new ResponseEntity<>(careerService.view(id), HttpStatus.OK);
     }
 
 
     @Operation(
-            summary = "Get all companies"
+            summary = "Get all careers posts"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @GetMapping("/all")
-    public ResponseEntity<CustomApiResponse<Object>> getAllCompanies(
+    @GetMapping
+    public ResponseEntity<CustomApiResponse<Object>> getAllCareers(
             @Parameter(description = AppConstants.PAGE_NUMBER_DESCRIPTION) @RequestParam(defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
             @Parameter(description = AppConstants.PAGE_SIZE_DESCRIPTION) @RequestParam(defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size,
             @Parameter(description = AppConstants.SORT_BY_DESCRIPTION) @RequestParam(defaultValue = AppConstants.DEFAULT_SORT_BY) String sort,
             @Parameter(description = AppConstants.SORT_DIRECTION_DESCRIPTION) @RequestParam(defaultValue = AppConstants.DEFAULT_SORT_DIRECTION) String dir,
             @Parameter(description = AppConstants.LANGUAGE_DESCRIPTION) @RequestParam(defaultValue = AppConstants.DEFAULT_LANGUAGE) String lan
     ){
-        log.info("CompanyController::getAllCompanies Execution started");
-        return new ResponseEntity<>(companyService.getAllCompanies(page,size,sort,dir,lan), HttpStatus.OK);
+        log.info("CareerController::getAllCareers Execution started");
+        return new ResponseEntity<>(careerService.getAll(page,size,sort,dir,lan), HttpStatus.OK);
     }
+
 }

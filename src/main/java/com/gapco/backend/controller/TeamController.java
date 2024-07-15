@@ -34,7 +34,7 @@ public class TeamController {
             summary = "Create a team member"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @PostMapping(consumes = "multipart/form-data")
+    @PostMapping(consumes = "*/*")
     public ResponseEntity<CustomApiResponse<Object>> AddTeamMember(@Valid @ModelAttribute TeamMemberCreateDTO teamMemberCreateDTO){
         log.info("TeamController::AddTeamMember Execution started");
         return new ResponseEntity<>(teamService.addTeamMember(teamMemberCreateDTO), HttpStatus.OK);
@@ -77,7 +77,7 @@ public class TeamController {
             description = "update team member"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @PutMapping(value="/{id}",consumes = "multipart/form-data")
+    @PutMapping(value="/{id}",consumes = "*/*")
     public ResponseEntity<CustomApiResponse<Object>> update(
             @Parameter(description = "Id of the team member") @PathVariable Long id, @ModelAttribute TeamMemberUpdateDTO teamMemberUpdateDTO
     ){

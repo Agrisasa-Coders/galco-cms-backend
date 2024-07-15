@@ -33,7 +33,7 @@ public class BlogController {
             summary = "Adding a knowledge base"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @PostMapping(consumes = "multipart/form-data")
+    @PostMapping(consumes = "*/*")
     public ResponseEntity<CustomApiResponse<Object>> AddBlogPost(@Valid @ModelAttribute BlogCreateDTO blog){
         log.info("BlogController::AddBlogPost Execution started");
         return new ResponseEntity<>(blogService.addBlogPost(blog), HttpStatus.OK);
@@ -73,7 +73,7 @@ public class BlogController {
             description = "update blog post"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @PutMapping(value = "/{id}",consumes = "multipart/form-data")
+    @PutMapping(value = "/{id}",consumes = "*/*")
     public ResponseEntity<CustomApiResponse<Object>> update(
             @Parameter(description = "Id of the blog post") @PathVariable Long id, @ModelAttribute BlogUpdateDTO blog
     ){
