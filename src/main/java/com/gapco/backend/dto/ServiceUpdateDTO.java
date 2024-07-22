@@ -23,6 +23,15 @@ public class ServiceUpdateDTO {
     @NotBlank(message = "name is mandatory")
     private String name;
 
+
+    @Schema(
+            name = "introduction",
+            description = "This is the introduction of the service",
+            requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+            type = "String"
+    )
+    private String introduction;
+
     @Schema(
             name = "photo",
             description = "This is the picture/photo of the service",

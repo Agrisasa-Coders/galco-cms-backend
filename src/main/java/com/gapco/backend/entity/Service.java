@@ -18,6 +18,9 @@ public class Service  extends Auditable {
     private String name;
 
     @Column(columnDefinition="TEXT")
+    private String introduction;
+
+    @Column(columnDefinition="TEXT")
     private String description;
 
     private String photoUrl;

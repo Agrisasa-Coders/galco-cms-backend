@@ -34,6 +34,7 @@ public class ServiceImpl {
         log.info("ServiceImpl::addService Execution started");
 
         com.gapco.backend.entity.Service newService = new com.gapco.backend.entity.Service();
+        newService.setIntroduction(serviceCreateDTO.getIntroduction());
         newService.setName(serviceCreateDTO.getName());
         newService.setDescription(serviceCreateDTO.getDescription());
 
@@ -115,6 +116,7 @@ public class ServiceImpl {
         if(findService.isPresent()){
 
             com.gapco.backend.entity.Service foundService = findService.get();
+            foundService.setIntroduction(serviceUpdateDTO.getIntroduction());
             foundService.setName(serviceUpdateDTO.getName());
             foundService.setDescription(serviceUpdateDTO.getDescription());
 

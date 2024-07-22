@@ -80,3 +80,4 @@ public class TechnologyController {
         return new ResponseEntity<>(technologyService.update(id,technology), HttpStatus.OK);
     }
 }
+

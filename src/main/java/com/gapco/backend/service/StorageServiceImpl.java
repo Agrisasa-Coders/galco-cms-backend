@@ -10,7 +10,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
 import java.util.Date;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +34,10 @@ public class StorageServiceImpl implements StorageService{
 
             Files.createDirectories(newFile.getParent());
             Files.write(newFile,file.getBytes());
+
+            // Set file permissions to 644
+            Set<PosixFilePermission> perms = PosixFilePermissions.fromString("rw-r--r--");
+            Files.setPosixFilePermissions(newFile, perms);
 
         } catch(Exception e){
 
