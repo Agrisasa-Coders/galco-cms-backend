@@ -19,6 +19,10 @@ public class KnowledgeBase extends Auditable {
     @Column(columnDefinition = "TEXT")
     private String introduction;
 
+
+    @Column(columnDefinition = "TEXT")
+    private String quote;
+
     private String subTitle;
 
     @ManyToOne(fetch = FetchType.EAGER)

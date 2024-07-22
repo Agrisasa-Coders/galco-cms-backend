@@ -42,6 +42,14 @@ public class KnowledgeBaseUpdateDTO {
     @NotBlank(message = "subTitle is mandatory")
     private String subTitle;
 
+    @Schema(
+            name = "quote",
+            description = "quote of the blog",
+            requiredMode = Schema.RequiredMode.REQUIRED,
+            type = "String"
+    )
+    @NotBlank(message = "quote is mandatory")
+    private String quote;
 
     @Schema(
             name = "introduction",

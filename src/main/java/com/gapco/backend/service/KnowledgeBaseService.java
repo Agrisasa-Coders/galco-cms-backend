@@ -41,6 +41,7 @@ public class KnowledgeBaseService {
             newKnowledgeBase.setTitle(knowledge.getTitle());
             newKnowledgeBase.setSubTitle(knowledge.getSubTitle());
             newKnowledgeBase.setIntroduction(knowledge.getIntroduction());
+            newKnowledgeBase.setQuote(knowledge.getQuote());
 
             com.gapco.backend.entity.Service service = serviceOptional.get();
 
@@ -127,6 +128,7 @@ public class KnowledgeBaseService {
                 updatedKnowledge.setTitle(knowledgeBase.getTitle());
                 updatedKnowledge.setSubTitle(knowledgeBase.getSubTitle());
                 updatedKnowledge.setIntroduction(knowledgeBase.getIntroduction());
+                updatedKnowledge.setQuote(knowledgeBase.getQuote());
 
                 com.gapco.backend.entity.Service service = serviceOptional.get();
 
