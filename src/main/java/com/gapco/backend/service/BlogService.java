@@ -18,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -109,6 +110,33 @@ public class BlogService {
         } else {
             throw new EntityNotFoundException("Blog Post not found");
         }
+    }
+
+
+    public CustomApiResponse<Object> delete(Long id) {
+
+        Optional<Blog> checkBlog = blogRepository.findById(id);
+
+        if(checkBlog.isPresent()){
+
+            Blog blogDetails = checkBlog.get();
+
+            blogRepository.delete(blogDetails);
+
+            CustomApiResponse<Object> customApiResponse = new CustomApiResponse<>("Blog has been successfully deleted");
+            customApiResponse.setData(blogDetails);
+            return customApiResponse;
+
+        } else {
+            throw new EntityNotFoundException("Blog Post not found");
+        }
+    }
+
+    public CustomApiResponse<Object> deleteAll() {
+        blogRepository.deleteAll();
+        CustomApiResponse<Object> customApiResponse = new CustomApiResponse("All blogs have been successfully deleted");
+        customApiResponse.setData(new ArrayList<>());
+        return customApiResponse;
     }
 
     public CustomApiResponse<Object> update(Long id, BlogUpdateDTO blog) {

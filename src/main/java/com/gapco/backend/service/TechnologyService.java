@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -99,6 +100,34 @@ public class TechnologyService {
         } else {
             throw new EntityNotFoundException("Record not found");
         }
+    }
+
+
+
+    public CustomApiResponse<Object> delete(Long id) {
+
+        Optional<Technology> checkTechnology = technologyRepository.findById(id);
+
+        if(checkTechnology.isPresent()){
+
+            Technology technologyDetails = checkTechnology.get();
+
+            technologyRepository.delete(technologyDetails);
+
+            CustomApiResponse<Object> customApiResponse = new CustomApiResponse<>("Technology has been successfully deleted");
+            customApiResponse.setData(technologyDetails);
+            return customApiResponse;
+
+        } else {
+            throw new EntityNotFoundException("Record not found");
+        }
+    }
+
+    public CustomApiResponse<Object> deleteAll() {
+        technologyRepository.deleteAll();
+        CustomApiResponse<Object> customApiResponse = new CustomApiResponse("Technology has been successfully deleted");
+        customApiResponse.setData(new ArrayList<>());
+        return customApiResponse;
     }
 
 

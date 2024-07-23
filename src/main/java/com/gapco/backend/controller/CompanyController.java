@@ -68,6 +68,30 @@ public class CompanyController {
 
 
     @Operation(
+            summary = "delete a company"
+    )
+    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CustomApiResponse<Object>> deleteCompany(
+            @Parameter(description = "Id of the company") @PathVariable Long id
+    ){
+        log.info("CompanyController::company Execution started");
+        return new ResponseEntity<>(companyService.deleteCompany(id), HttpStatus.OK);
+    }
+
+
+    @Operation(
+            summary = "delete all companies"
+    )
+    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
+    @DeleteMapping
+    public ResponseEntity<CustomApiResponse<Object>> deleteAll(){
+        log.info("CompanyController::deleteAll Execution started");
+        return new ResponseEntity<>(companyService.deleteAll(), HttpStatus.OK);
+    }
+
+
+    @Operation(
             summary = "Get all companies"
     )
     @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })

@@ -81,4 +81,28 @@ public class CareerController {
         return new ResponseEntity<>(careerService.getAll(page,size,sort,dir,lan), HttpStatus.OK);
     }
 
+
+    @Operation(
+            summary = "delete career details"
+    )
+    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CustomApiResponse<Object>> deleteCareer(
+            @Parameter(description = "Id of the career") Long id
+    ){
+        log.info("CareerController::deleteCareer Execution started");
+        return new ResponseEntity<>(careerService.delete(id), HttpStatus.OK);
+    }
+
+
+    @Operation(
+            summary = "delete all careers"
+    )
+    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
+    @DeleteMapping
+    public ResponseEntity<CustomApiResponse<Object>> deleteAll(){
+        log.info("CareerController::deleteAll Execution started");
+        return new ResponseEntity<>(careerService.deleteAll(), HttpStatus.OK);
+    }
+
 }

@@ -72,6 +72,31 @@ public class CustomerController {
     }
 
 
+
+    @Operation(
+            summary = "delete a customer"
+    )
+    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CustomApiResponse<Object>> deleteCustomer(
+            @Parameter(description = "Id of the customer") @PathVariable Long id
+    ){
+        log.info("CustomerController::deleteCustomer Execution started");
+        return new ResponseEntity<>(customerService.delete(id), HttpStatus.OK);
+    }
+
+
+    @Operation(
+            summary = "delete all customers"
+    )
+    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
+    @DeleteMapping
+    public ResponseEntity<CustomApiResponse<Object>> deleteAll(){
+        log.info("CustomerController::deleteAll Execution started");
+        return new ResponseEntity<>(customerService.deleteAll(), HttpStatus.OK);
+    }
+
+
     @Operation(
             summary = "update a customer",
             description = "update a customer"

@@ -73,6 +73,31 @@ public class TeamController {
 
 
     @Operation(
+            summary = "delete a team member"
+    )
+    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CustomApiResponse<Object>> delete(
+            @Parameter(description = "Id of the team member") @PathVariable Long id
+    ){
+        log.info("TeamController::delete Execution started");
+        return new ResponseEntity<>(teamService.delete(id), HttpStatus.OK);
+    }
+
+
+
+    @Operation(
+            summary = "delete all team members"
+    )
+    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
+    @DeleteMapping
+    public ResponseEntity<CustomApiResponse<Object>> deleteAll(){
+        log.info("TeamController::deleteAll Execution started");
+        return new ResponseEntity<>(teamService.deleteAll(), HttpStatus.OK);
+    }
+
+
+    @Operation(
             summary = "update team member",
             description = "update team member"
     )

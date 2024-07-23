@@ -69,6 +69,30 @@ public class KnowledgeBaseController {
 
 
     @Operation(
+            summary = "delete a knowledge base"
+    )
+    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CustomApiResponse<Object>> delete(
+            @Parameter(description = "Id of the knowledge") @PathVariable Long id
+    ){
+        log.info("KnowledgeBaseController::delete Execution started");
+        return new ResponseEntity<>(knowledgeBaseService.delete(id), HttpStatus.OK);
+    }
+
+
+    @Operation(
+            summary = "delete all knowledge bases"
+    )
+    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
+    @DeleteMapping
+    public ResponseEntity<CustomApiResponse<Object>> deleteAll(){
+        log.info("KnowledgeBaseController::deleteAll Execution started");
+        return new ResponseEntity<>(knowledgeBaseService.deleteAll(), HttpStatus.OK);
+    }
+
+
+    @Operation(
             summary = "update knowledge base",
             description = "update knowledge base"
     )

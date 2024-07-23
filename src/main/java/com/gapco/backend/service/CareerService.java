@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -162,5 +163,31 @@ public class CareerService {
         } else {
             throw new EntityNotFoundException("Career Post not found");
         }
+    }
+
+    public CustomApiResponse<Object> delete(Long id) {
+
+        Optional<Career> checkCareer = careerRepository.findById(id);
+
+        if(checkCareer.isPresent()){
+
+            Career careerDetails = checkCareer.get();
+
+            careerRepository.delete(careerDetails);
+
+            CustomApiResponse<Object> customApiResponse = new CustomApiResponse<>("career has been successfully deleted");
+            customApiResponse.setData(careerDetails);
+            return customApiResponse;
+
+        } else {
+            throw new EntityNotFoundException("Career Post not found");
+        }
+    }
+
+    public CustomApiResponse<Object> deleteAll() {
+        careerRepository.deleteAll();
+        CustomApiResponse<Object> customApiResponse = new CustomApiResponse("All careers have been successfully deleted");
+        customApiResponse.setData(new ArrayList<>());
+        return customApiResponse;
     }
 }

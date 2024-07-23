@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -228,6 +229,36 @@ public class CompanyService {
         );
 
         customApiResponse.setData(companies);
+        return customApiResponse;
+    }
+
+
+    public CustomApiResponse<Object> deleteCompany(Long companyId) {
+        log.info("CompanyService::deleteCompany Execution started");
+
+        Optional<Company> companyById = companyRepository.findById(companyId);
+
+        if(companyById.isPresent()){
+            Company company = companyById.get();
+
+            companyRepository.delete(company);
+            CustomApiResponse<Object> customApiResponse = new CustomApiResponse(AppConstants.OPERATION_SUCCESSFULLY_MESSAGE);
+            customApiResponse.setData(company);
+
+            log.info("CompanyService::deleteCompany Execution ended");
+            return customApiResponse;
+
+        }else{
+
+            log.error("CompanyService::deleteCompany No matching company found");
+            throw new EntityNotFoundException("No matching company found");
+        }
+    }
+
+    public CustomApiResponse<Object> deleteAll() {
+        companyRepository.deleteAll();
+        CustomApiResponse<Object> customApiResponse = new CustomApiResponse("Companies have been successfully deleted");
+        customApiResponse.setData(new ArrayList<>());
         return customApiResponse;
     }
 

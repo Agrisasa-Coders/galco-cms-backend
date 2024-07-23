@@ -67,6 +67,29 @@ public class TechnologyController {
         return new ResponseEntity<>(technologyService.view(id), HttpStatus.OK);
     }
 
+
+    @Operation(
+            summary = "delete technology"
+    )
+    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CustomApiResponse<Object>> delete(
+            @Parameter(description = "Id of the Technology") @PathVariable Long id
+    ){
+        log.info("TechnologyController::delete Execution started");
+        return new ResponseEntity<>(technologyService.delete(id), HttpStatus.OK);
+    }
+
+    @Operation(
+            summary = "delete all technologies"
+    )
+    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
+    @DeleteMapping
+    public ResponseEntity<CustomApiResponse<Object>> deleteAll(){
+        log.info("TechnologyController::deleteAll Execution started");
+        return new ResponseEntity<>(technologyService.deleteAll(), HttpStatus.OK);
+    }
+
     @Operation(
             summary = "update technology",
             description = "update technology"

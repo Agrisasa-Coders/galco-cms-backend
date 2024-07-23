@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -115,6 +116,33 @@ public class CustomerService {
         } else {
             throw new EntityNotFoundException("Customer not found");
         }
+    }
+
+
+    public CustomApiResponse<Object> delete(Long id) {
+
+        Optional<Customer> customerOptional = customerRepository.findById(id);
+
+        if(customerOptional.isPresent()){
+            Customer existingCustomer = customerOptional.get();
+
+            customerRepository.delete(existingCustomer);
+
+            CustomApiResponse<Object> customApiResponse = new CustomApiResponse<>("Customer has been successfully deleted");
+            customApiResponse.setData(existingCustomer);
+            return customApiResponse;
+
+        } else {
+            throw new EntityNotFoundException("Customer not found");
+        }
+    }
+
+
+    public CustomApiResponse<Object> deleteAll() {
+        customerRepository.deleteAll();
+        CustomApiResponse<Object> customApiResponse = new CustomApiResponse("Customers have been successfully deleted");
+        customApiResponse.setData(new ArrayList<>());
+        return customApiResponse;
     }
 
 

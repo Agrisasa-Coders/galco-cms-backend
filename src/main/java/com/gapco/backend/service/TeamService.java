@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,6 +98,32 @@ public class TeamService {
         }
     }
 
+
+    public CustomApiResponse<Object> delete(Long id) {
+
+        Optional<Team> checkTeam = teamRepository.findById(id);
+
+        if(checkTeam.isPresent()){
+            Team blogTeams = checkTeam.get();
+
+            teamRepository.delete(blogTeams);
+
+            CustomApiResponse<Object> customApiResponse = new CustomApiResponse<>("Team member has been successfully deleted");
+            customApiResponse.setData(blogTeams);
+            return customApiResponse;
+
+        } else {
+            throw new EntityNotFoundException("Team member not found");
+        }
+    }
+
+
+    public CustomApiResponse<Object> deleteAll() {
+        teamRepository.deleteAll();
+        CustomApiResponse<Object> customApiResponse = new CustomApiResponse("Team member have been successfully deleted");
+        customApiResponse.setData(new ArrayList<>());
+        return customApiResponse;
+    }
 
     public CustomApiResponse<Object> update(Long id, TeamMemberUpdateDTO teamMemberUpdateDTO) {
 

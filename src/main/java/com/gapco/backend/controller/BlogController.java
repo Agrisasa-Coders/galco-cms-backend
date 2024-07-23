@@ -64,8 +64,32 @@ public class BlogController {
     public ResponseEntity<CustomApiResponse<Object>> getDetails(
             @Parameter(description = "Id of the blog") @PathVariable Long id
     ){
-        log.info("BlogController::CompetitionController Execution started");
+        log.info("BlogController::getDetails Execution started");
         return new ResponseEntity<>(blogService.view(id), HttpStatus.OK);
+    }
+
+
+    @Operation(
+            summary = "delete a blog"
+    )
+    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CustomApiResponse<Object>> delete(
+            @Parameter(description = "Id of the blog") @PathVariable Long id
+    ){
+        log.info("BlogController::delete Execution started");
+        return new ResponseEntity<>(blogService.delete(id), HttpStatus.OK);
+    }
+
+
+    @Operation(
+            summary = "delete all blogs"
+    )
+    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
+    @DeleteMapping
+    public ResponseEntity<CustomApiResponse<Object>> deleteAll(){
+        log.info("BlogController::deleteAll Execution started");
+        return new ResponseEntity<>(blogService.deleteAll(), HttpStatus.OK);
     }
 
     @Operation(

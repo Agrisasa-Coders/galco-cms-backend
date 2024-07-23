@@ -109,6 +109,34 @@ public class ServiceImpl {
     }
 
 
+    public CustomApiResponse<Object> delete(Long id) {
+
+        Optional<com.gapco.backend.entity.Service> checkService = serviceRepository.findById(id);
+
+        if(checkService.isPresent()){
+
+            com.gapco.backend.entity.Service serviceDetails = checkService.get();
+
+            serviceRepository.delete(serviceDetails);
+
+            CustomApiResponse<Object> customApiResponse = new CustomApiResponse<>("Service has been successfully deleted");
+            customApiResponse.setData(serviceDetails);
+            return customApiResponse;
+
+        } else {
+            throw new EntityNotFoundException("Service not found");
+        }
+    }
+
+
+    public CustomApiResponse<Object> deleteAll() {
+        serviceRepository.deleteAll();
+        CustomApiResponse<Object> customApiResponse = new CustomApiResponse("Services have been successfully deleted");
+        customApiResponse.setData(new ArrayList<>());
+        return customApiResponse;
+    }
+
+
     public CustomApiResponse<Object> update(Long id, ServiceUpdateDTO serviceUpdateDTO) {
 
         Optional<com.gapco.backend.entity.Service> findService = serviceRepository.findById(id);

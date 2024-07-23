@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -111,6 +112,34 @@ public class KnowledgeBaseService {
         } else {
             throw new EntityNotFoundException("knowledge not found");
         }
+    }
+
+
+    public CustomApiResponse<Object> delete(Long id) {
+
+        Optional<KnowledgeBase> checkKnowledgeBase = knowledgeBaseRepository.findById(id);
+
+        if(checkKnowledgeBase.isPresent()){
+
+            KnowledgeBase knowledgeDetails = checkKnowledgeBase.get();
+
+            knowledgeBaseRepository.delete(knowledgeDetails);
+
+            CustomApiResponse<Object> customApiResponse = new CustomApiResponse<>("Record has been successfully deleted");
+            customApiResponse.setData(knowledgeDetails);
+            return customApiResponse;
+
+        } else {
+            throw new EntityNotFoundException("knowledge not found");
+        }
+    }
+
+
+    public CustomApiResponse<Object> deleteAll() {
+        knowledgeBaseRepository.deleteAll();
+        CustomApiResponse<Object> customApiResponse = new CustomApiResponse("Knowledge base have been successfully deleted");
+        customApiResponse.setData(new ArrayList<>());
+        return customApiResponse;
     }
 
 

@@ -71,6 +71,30 @@ public class ServiceController {
     }
 
     @Operation(
+            summary = "delete service"
+    )
+    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CustomApiResponse<Object>> deleteService(
+            @Parameter(description = "Id of the service") @PathVariable Long id
+    ){
+        log.info("ServiceController::deleteService Execution started");
+        return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
+    }
+
+
+    @Operation(
+            summary = "delete all services"
+    )
+    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
+    @DeleteMapping
+    public ResponseEntity<CustomApiResponse<Object>> deleteAll(){
+        log.info("ServiceController::deleteAll Execution started");
+        return new ResponseEntity<>(service.deleteAll(), HttpStatus.OK);
+    }
+
+
+    @Operation(
             summary = "update a service",
             description = "update a service"
     )
