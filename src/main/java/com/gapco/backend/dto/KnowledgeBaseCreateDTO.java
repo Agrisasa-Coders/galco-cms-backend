@@ -45,10 +45,10 @@ public class KnowledgeBaseCreateDTO {
     @Schema(
             name = "quote",
             description = "quote of the blog",
-            requiredMode = Schema.RequiredMode.REQUIRED,
+            requiredMode = Schema.RequiredMode.NOT_REQUIRED,
             type = "String"
     )
-    @NotBlank(message = "quote is mandatory")
+    //@NotBlank(message = "quote is mandatory")
     private String quote;
 
 
