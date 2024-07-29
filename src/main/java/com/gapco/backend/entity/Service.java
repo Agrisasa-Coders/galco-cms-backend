@@ -36,4 +36,8 @@ public class Service  extends Auditable {
     @OneToMany(mappedBy="service",cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<KnowledgeBase> knowledgeBases;
+
+    @OneToMany(mappedBy="service",cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<SubService> subServices;
 }

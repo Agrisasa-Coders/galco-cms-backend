@@ -1,28 +1,22 @@
 package com.gapco.backend.entity;
 
+
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
-public class KnowledgeBase extends Auditable {
+public class SubService extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-    private String photoUrl;
+    private String name;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition="TEXT")
     private String description;
 
-    @Column(columnDefinition = "TEXT")
-    private String introduction;
-
-    @Column(columnDefinition = "TEXT")
-    private String quote;
-
-    private String subTitle;
+    private String photoUrl;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "service_id")
