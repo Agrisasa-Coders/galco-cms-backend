@@ -33,11 +33,15 @@ public class Service  extends Auditable {
     private List<Technology> technologies;
 
 
-    @OneToMany(mappedBy="service",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="service",cascade = CascadeType.ALL,orphanRemoval = true)
     @JsonIgnore
     private Set<KnowledgeBase> knowledgeBases;
 
-    @OneToMany(mappedBy="service",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="service",cascade = CascadeType.ALL,orphanRemoval = true)
     @JsonIgnore
     private Set<SubService> subServices;
+
+    @OneToMany(mappedBy="service",cascade = CascadeType.ALL,orphanRemoval = true)
+    @JsonIgnore
+    private Set<Blog> blogs;
 }

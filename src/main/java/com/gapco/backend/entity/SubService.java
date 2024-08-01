@@ -18,7 +18,7 @@ public class SubService extends Auditable{
 
     private String photoUrl;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "service_id")
     private Service service;
 }

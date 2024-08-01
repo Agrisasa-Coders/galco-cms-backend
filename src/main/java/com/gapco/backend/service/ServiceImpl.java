@@ -2,10 +2,12 @@ package com.gapco.backend.service;
 
 import com.gapco.backend.dto.ServiceCreateDTO;
 import com.gapco.backend.dto.ServiceUpdateDTO;
+import com.gapco.backend.entity.Blog;
+import com.gapco.backend.entity.KnowledgeBase;
+import com.gapco.backend.entity.SubService;
 import com.gapco.backend.entity.Technology;
 import com.gapco.backend.exception.EntityNotFoundException;
-import com.gapco.backend.repository.ServiceRepository;
-import com.gapco.backend.repository.TechnologyRepository;
+import com.gapco.backend.repository.*;
 import com.gapco.backend.response.CustomApiResponse;
 import com.gapco.backend.util.AppConstants;
 import com.gapco.backend.util.Helper;
@@ -28,6 +30,9 @@ import java.util.Optional;
 public class ServiceImpl {
     private final ServiceRepository serviceRepository;
     private final TechnologyRepository technologyRepository;
+    private final KnowledgeBaseRepository knowledgeBaseRepository;
+    private final BlogRepository blogRepository;
+    private final SubServiceRepository subServiceRepository;
     private final StorageService storageService;
 
     public CustomApiResponse<Object> addService(ServiceCreateDTO serviceCreateDTO){
@@ -113,9 +118,19 @@ public class ServiceImpl {
 
         Optional<com.gapco.backend.entity.Service> checkService = serviceRepository.findById(id);
 
+
         if(checkService.isPresent()){
 
             com.gapco.backend.entity.Service serviceDetails = checkService.get();
+
+            List<KnowledgeBase> knowledgeBases = knowledgeBaseRepository.getKnowledgeBases(id);
+            List<Blog> blogs = blogRepository.getServiceBlogs(id);
+            List<SubService> subServices = subServiceRepository.getSubServices(id);
+
+
+            knowledgeBaseRepository.deleteAll(knowledgeBases);
+            blogRepository.deleteAll(blogs);
+            subServiceRepository.deleteAll(subServices);
 
             serviceRepository.delete(serviceDetails);
 

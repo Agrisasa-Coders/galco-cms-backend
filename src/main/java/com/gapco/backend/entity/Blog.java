@@ -24,7 +24,7 @@ public class Blog extends Auditable {
     private String quote;
     private String photoUrl;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "service_id")
     private Service service;
 }
