@@ -59,4 +59,12 @@ public class CareerUpdateDTO {
             type = "String"
     )
     private String language;
+
+    @Schema(
+            name = "jobPostUrl",
+            description = "This is Url of the job posted",
+            requiredMode = Schema.RequiredMode.NOT_REQUIRED,
+            type = "String"
+    )
+    private String jobPostUrl;
 }

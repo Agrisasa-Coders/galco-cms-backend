@@ -23,6 +23,10 @@ public class Service  extends Auditable {
     @Column(columnDefinition="TEXT")
     private String description;
 
+    private String subServiceHeader ;
+
+    private String subServiceTagline;
+
     private String photoUrl;
 
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)

@@ -42,6 +42,8 @@ public class ServiceImpl {
         newService.setIntroduction(serviceCreateDTO.getIntroduction());
         newService.setName(serviceCreateDTO.getName());
         newService.setDescription(serviceCreateDTO.getDescription());
+        newService.setSubServiceHeader(serviceCreateDTO.getSubServiceHeader());
+        newService.setSubServiceTagline(serviceCreateDTO.getSubServiceTagline());
 
         //Upload the staff profile photo
         String filePath = storageService.storeFileToFileSystem(
@@ -162,6 +164,8 @@ public class ServiceImpl {
             foundService.setIntroduction(serviceUpdateDTO.getIntroduction());
             foundService.setName(serviceUpdateDTO.getName());
             foundService.setDescription(serviceUpdateDTO.getDescription());
+            foundService.setSubServiceHeader(serviceUpdateDTO.getSubServiceHeader());
+            foundService.setSubServiceTagline(serviceUpdateDTO.getSubServiceTagline());
 
             if(serviceUpdateDTO.getPhoto() != null){
 

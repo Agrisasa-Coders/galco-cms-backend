@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Set;
 
 @Service
@@ -35,9 +36,14 @@ public class StorageServiceImpl implements StorageService{
             Files.createDirectories(newFile.getParent());
             Files.write(newFile,file.getBytes());
 
-            // Set file permissions to 644
-            Set<PosixFilePermission> perms = PosixFilePermissions.fromString("rw-r--r--");
-            Files.setPosixFilePermissions(newFile, perms);
+
+            String OS = System.getProperty("os.name").toLowerCase();
+
+            // Set file permissions to 644 for unix
+            if(OS.contains("nix") || OS.contains("nux") || OS.contains("aix")){
+                Set<PosixFilePermission> perms = PosixFilePermissions.fromString("rw-r--r--");
+                Files.setPosixFilePermissions(newFile, perms);
+            }
 
         } catch(Exception e){
 

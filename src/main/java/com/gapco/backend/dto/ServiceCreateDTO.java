@@ -50,6 +50,28 @@ public class ServiceCreateDTO {
     @NotEmpty(message = "description is mandatory")
     private String description;
 
+
+
+    @Schema(
+            name = "subServiceHeader",
+            description = "This is the sub-service header of the service",
+            requiredMode = Schema.RequiredMode.REQUIRED,
+            type = "String"
+    )
+    @NotEmpty(message = "subServiceHeader is mandatory")
+    private String subServiceHeader ;
+
+
+
+    @Schema(
+            name = "subServiceTagline",
+            description = "This is the sub-service tagline  of the service",
+            requiredMode = Schema.RequiredMode.REQUIRED,
+            type = "String"
+    )
+    @NotEmpty(message = "subServiceTagline is mandatory")
+    private String subServiceTagline;
+
     @Schema(
             name = "technologies",
             description = "List",

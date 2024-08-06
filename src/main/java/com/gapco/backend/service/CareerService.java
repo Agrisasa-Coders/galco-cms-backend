@@ -36,6 +36,7 @@ public class CareerService {
         newCareer.setTitle(career.getTitle());
         newCareer.setShortDescription(career.getShortDescription());
         newCareer.setRequirements(career.getRequirements());
+        newCareer.setJobPostUrl(career.getJobPostUrl());
 
         try{
             String photoPath = storageService.storeFileToFileSystem(
@@ -81,6 +82,7 @@ public class CareerService {
             updatedCareer.setTitle(career.getTitle());
             updatedCareer.setShortDescription(career.getShortDescription());
             updatedCareer.setRequirements(career.getRequirements());
+            updatedCareer.setJobPostUrl(career.getJobPostUrl());
 
             try{
 

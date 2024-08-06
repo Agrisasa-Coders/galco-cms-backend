@@ -22,4 +22,6 @@ public class Career extends Auditable{
     private String photoUrl;
 
     private String documentUrl;
+
+    private String jobPostUrl;
 }
