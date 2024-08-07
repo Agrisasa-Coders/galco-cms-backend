@@ -2,6 +2,7 @@ package com.gapco.backend.service;
 
 import com.gapco.backend.exception.InternalServerErrorException;
 import com.gapco.backend.util.AppConstants;
+import com.gapco.backend.util.Helper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -45,13 +46,19 @@ public class StorageServiceImpl implements StorageService{
                 Files.setPosixFilePermissions(newFile, perms);
             }
 
+//            Set<PosixFilePermission> perms = PosixFilePermissions.fromString("rw-r--r--");
+//            Files.setPosixFilePermissions(newFile, perms);
+
         } catch(Exception e){
 
             logService.logToFile(AppConstants.LOGS_PATH,"StoreToFileSystemException",e.getMessage());
             throw new InternalServerErrorException("There is an error in uploading a file");
         }
 
-        return newFile.toAbsolutePath()
-                .toString();
+        //update path
+
+        String updatedFilePath = Helper.getUploadedPath(newFile.toAbsolutePath().toString());
+
+        return updatedFilePath;
     }
 }

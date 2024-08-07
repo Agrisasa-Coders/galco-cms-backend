@@ -52,7 +52,7 @@ public class BlogService {
                     blog.getPhoto().getOriginalFilename()
             );
 
-            newBlog.setPhotoUrl(Helper.getUploadedPath(filePath));
+            newBlog.setPhotoUrl(filePath);
 
             if(!(blog.getLanguage() == null || blog.getLanguage() == "")){
                 newBlog.setLanguage(blog.getLanguage());
@@ -166,7 +166,7 @@ public class BlogService {
                             blog.getPhoto().getOriginalFilename()
                     );
 
-                    updatedBlogPost.setPhotoUrl(Helper.getUploadedPath(filePath));
+                    updatedBlogPost.setPhotoUrl(filePath);
                 }
 
 

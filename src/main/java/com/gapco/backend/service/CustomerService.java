@@ -46,7 +46,7 @@ public class CustomerService {
                     customerCreateDTO.getPhoto().getOriginalFilename()
             );
 
-            newCustomer.setPhotoUrl(Helper.getUploadedPath(filePath));
+            newCustomer.setPhotoUrl(filePath);
         }
 
         if(!(customerCreateDTO.getLanguage() == null || customerCreateDTO.getLanguage() == "")){
@@ -84,7 +84,7 @@ public class CustomerService {
                         customerCreateDTO.getPhoto().getOriginalFilename()
                 );
 
-                existingCustomer.setPhotoUrl(Helper.getUploadedPath(filePath));
+                existingCustomer.setPhotoUrl(filePath);
             }
 
             if(!(customerCreateDTO.getLanguage() == null || customerCreateDTO.getLanguage() == "")){

@@ -19,10 +19,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -51,7 +49,7 @@ public class ServiceImpl {
                 serviceCreateDTO.getPhoto().getOriginalFilename()
         );
 
-        newService.setPhotoUrl(Helper.getUploadedPath(filePath));
+        newService.setPhotoUrl(filePath);
 
         if(!(serviceCreateDTO.getLanguage() == null || Objects.equals(serviceCreateDTO.getLanguage(), ""))){
             newService.setLanguage(serviceCreateDTO.getLanguage());
@@ -87,6 +85,20 @@ public class ServiceImpl {
 
         List<com.gapco.backend.entity.Service> services = pageableServices.getContent();
 
+        for (com.gapco.backend.entity.Service service: services) {
+
+            List<SubService> subServices = subServiceRepository.getSubServices(service.getId());
+
+            List<SubService> updatedSubServices = subServices.stream().map((subService) -> {
+                subService.setService(null);
+                return subService;
+            }).toList();
+
+            Set<SubService> subServiceSet = new HashSet<>(updatedSubServices);
+
+            service.setSubServices(subServiceSet);
+        }
+
         CustomApiResponse<Object> customApiResponse = new CustomApiResponse(
                 AppConstants.OPERATION_SUCCESSFULLY_MESSAGE,
                 pageableServices.getTotalElements(),
@@ -106,6 +118,18 @@ public class ServiceImpl {
         if(checkService.isPresent()){
 
             com.gapco.backend.entity.Service serviceDetails = checkService.get();
+
+            List<SubService> subServices = subServiceRepository.getSubServices(id);
+
+            List<SubService> updatedSubServices = subServices.stream().map((service) -> {
+                service.setService(null);
+                return service;
+            }).toList();
+
+            Set<SubService> subServiceSet = new HashSet<>(updatedSubServices);
+
+            serviceDetails.setSubServices(subServiceSet);
+
             CustomApiResponse<Object> customApiResponse = new CustomApiResponse<>("Record Founds");
             customApiResponse.setData(serviceDetails);
             return customApiResponse;
@@ -175,7 +199,7 @@ public class ServiceImpl {
                         serviceUpdateDTO.getPhoto().getOriginalFilename()
                 );
 
-                foundService.setPhotoUrl(Helper.getUploadedPath(filePath));
+                foundService.setPhotoUrl(filePath);
             }
 
 

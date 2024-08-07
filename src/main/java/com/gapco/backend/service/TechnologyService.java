@@ -43,7 +43,7 @@ public class TechnologyService {
                     technology.getPhoto().getOriginalFilename()
             );
 
-            newTechnology.setPhotoUrl(Helper.getUploadedPath(filePath));
+            newTechnology.setPhotoUrl(filePath);
         }
 
         if(!(technology.getLanguage() == null || Objects.equals(technology.getLanguage(), ""))){
@@ -149,7 +149,7 @@ public class TechnologyService {
                         technology.getPhoto().getOriginalFilename()
                 );
 
-                updatedTechnology.setPhotoUrl(Helper.getUploadedPath(filePath));
+                updatedTechnology.setPhotoUrl(filePath);
             }
 
             if(!(technology.getLanguage() == null || Objects.equals(technology.getLanguage(), ""))){

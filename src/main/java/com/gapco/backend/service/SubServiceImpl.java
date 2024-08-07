@@ -48,7 +48,7 @@ public class SubServiceImpl {
                         subServiceCreateDTO.getPhoto().getOriginalFilename()
                 );
 
-                newSubService.setPhotoUrl(Helper.getUploadedPath(filePath));
+                newSubService.setPhotoUrl(filePath);
             }
 
             if(!(subServiceCreateDTO.getLanguage() == null || Objects.equals(subServiceCreateDTO.getLanguage(), ""))){
@@ -92,7 +92,7 @@ public class SubServiceImpl {
                             subServiceUpdateDTO.getPhoto().getOriginalFilename()
                     );
 
-                    existingSubService.setPhotoUrl(Helper.getUploadedPath(filePath));
+                    existingSubService.setPhotoUrl(filePath);
                 }
 
                 if(!(subServiceUpdateDTO.getLanguage() == null || Objects.equals(subServiceUpdateDTO.getLanguage(), ""))){

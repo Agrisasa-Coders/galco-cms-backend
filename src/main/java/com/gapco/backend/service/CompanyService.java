@@ -93,7 +93,7 @@ public class CompanyService {
                         companyCreateDTO.getCeoPhoto().getOriginalFilename()
                 );
 
-                newCompany.setCeoPhotoUrl(Helper.getUploadedPath(filePath));
+                newCompany.setCeoPhotoUrl(filePath);
             }
 
             if(!(companyCreateDTO.getLanguage() == null || companyCreateDTO.getLanguage() == "")){
@@ -165,7 +165,7 @@ public class CompanyService {
                         companyCreateDTO.getCeoPhoto().getOriginalFilename()
                 );
 
-                foundedCompany.setCeoPhotoUrl(Helper.getUploadedPath(filePath));
+                foundedCompany.setCeoPhotoUrl(filePath);
             }
 
             if(!(companyCreateDTO.getLanguage() == null || companyCreateDTO.getLanguage() == "")){

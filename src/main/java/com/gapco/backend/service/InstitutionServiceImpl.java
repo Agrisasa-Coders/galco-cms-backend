@@ -87,7 +87,7 @@ public class InstitutionServiceImpl implements InstitutionService{
                         institution.getCeoPhoto().getOriginalFilename()
                 );
 
-                newInstitution.setCeoPhotoUrl(Helper.getUploadedPath(filePath));
+                newInstitution.setCeoPhotoUrl(filePath);
             }
 
             if(!(institution.getLanguage() == null || institution.getLanguage() == "")){
@@ -144,7 +144,7 @@ public class InstitutionServiceImpl implements InstitutionService{
                         updatedInstitution.getCeoPhoto().getOriginalFilename()
                 );
 
-                institution.setCeoPhotoUrl(Helper.getUploadedPath(filePath));
+                institution.setCeoPhotoUrl(filePath);
             }
 
 

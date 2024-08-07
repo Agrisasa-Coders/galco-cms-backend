@@ -41,7 +41,7 @@ public class TeamService {
                 teamMemberCreateDTO.getPhoto().getOriginalFilename()
         );
 
-        newTeamMember.setPhotoUrl(Helper.getUploadedPath(filePath));
+        newTeamMember.setPhotoUrl(filePath);
 
         if(!(teamMemberCreateDTO.getLanguage() == null || teamMemberCreateDTO.getLanguage() == "")){
             newTeamMember.setLanguage(teamMemberCreateDTO.getLanguage());
@@ -143,7 +143,7 @@ public class TeamService {
                         teamMemberUpdateDTO.getPhoto().getOriginalFilename()
                 );
 
-                foundTeamMember.setPhotoUrl(Helper.getUploadedPath(filePath));
+                foundTeamMember.setPhotoUrl(filePath);
             }
 
             if(!(teamMemberUpdateDTO.getLanguage() == null || teamMemberUpdateDTO.getLanguage() == "")){

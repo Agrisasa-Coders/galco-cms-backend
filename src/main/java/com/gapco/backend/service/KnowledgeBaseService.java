@@ -53,7 +53,7 @@ public class KnowledgeBaseService {
                     knowledge.getPhoto().getOriginalFilename()
             );
 
-            newKnowledgeBase.setPhotoUrl(Helper.getUploadedPath(filePath));
+            newKnowledgeBase.setPhotoUrl(filePath);
 
             if(!(knowledge.getLanguage() == null || Objects.equals(knowledge.getLanguage(), ""))){
                 newKnowledgeBase.setLanguage(knowledge.getLanguage());
@@ -170,7 +170,7 @@ public class KnowledgeBaseService {
                             knowledgeBase.getPhoto().getOriginalFilename()
                     );
 
-                    updatedKnowledge.setPhotoUrl(Helper.getUploadedPath(filePath));
+                    updatedKnowledge.setPhotoUrl(filePath);
                 }
 
                 if(!(knowledgeBase.getLanguage() == null || Objects.equals(knowledgeBase.getLanguage(), ""))){

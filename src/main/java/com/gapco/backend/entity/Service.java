@@ -42,7 +42,7 @@ public class Service  extends Auditable {
     private Set<KnowledgeBase> knowledgeBases;
 
     @OneToMany(mappedBy="service",cascade = CascadeType.ALL,orphanRemoval = true)
-    @JsonIgnore
+   // @JsonIgnore
     private Set<SubService> subServices;
 
     @OneToMany(mappedBy="service",cascade = CascadeType.ALL,orphanRemoval = true)
