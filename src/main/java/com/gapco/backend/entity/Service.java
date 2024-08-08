@@ -29,7 +29,7 @@ public class Service  extends Auditable {
 
     private String photoUrl;
 
-    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "service_technology", joinColumns = {
             @JoinColumn(name="service_id",referencedColumnName = "id")},inverseJoinColumns = {
             @JoinColumn(name="technology_id",referencedColumnName = "id")
@@ -48,4 +48,9 @@ public class Service  extends Auditable {
     @OneToMany(mappedBy="service",cascade = CascadeType.ALL,orphanRemoval = true)
     @JsonIgnore
     private Set<Blog> blogs;
+
+
+    @OneToMany(mappedBy="service",cascade = CascadeType.ALL,orphanRemoval = true)
+//    @JsonIgnore
+    private List<Gallery> photos;
 }

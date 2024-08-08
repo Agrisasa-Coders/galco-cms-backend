@@ -2,10 +2,7 @@ package com.gapco.backend.service;
 
 import com.gapco.backend.dto.ServiceCreateDTO;
 import com.gapco.backend.dto.ServiceUpdateDTO;
-import com.gapco.backend.entity.Blog;
-import com.gapco.backend.entity.KnowledgeBase;
-import com.gapco.backend.entity.SubService;
-import com.gapco.backend.entity.Technology;
+import com.gapco.backend.entity.*;
 import com.gapco.backend.exception.EntityNotFoundException;
 import com.gapco.backend.repository.*;
 import com.gapco.backend.response.CustomApiResponse;
@@ -31,6 +28,7 @@ public class ServiceImpl {
     private final KnowledgeBaseRepository knowledgeBaseRepository;
     private final BlogRepository blogRepository;
     private final SubServiceRepository subServiceRepository;
+    private final GalleryRepository galleryRepository;
     private final StorageService storageService;
 
     public CustomApiResponse<Object> addService(ServiceCreateDTO serviceCreateDTO){
@@ -97,6 +95,8 @@ public class ServiceImpl {
             Set<SubService> subServiceSet = new HashSet<>(updatedSubServices);
 
             service.setSubServices(subServiceSet);
+
+            service.setPhotos(null);
         }
 
         CustomApiResponse<Object> customApiResponse = new CustomApiResponse(
@@ -121,6 +121,13 @@ public class ServiceImpl {
 
             List<SubService> subServices = subServiceRepository.getSubServices(id);
 
+            List<Gallery> photos = galleryRepository.getAllServicePhotos(id);
+
+            List<Gallery> updatedPhotos = photos.stream().map((gallery) -> {
+                gallery.setService(null);
+                return gallery;
+            }).toList();
+
             List<SubService> updatedSubServices = subServices.stream().map((service) -> {
                 service.setService(null);
                 return service;
@@ -129,6 +136,8 @@ public class ServiceImpl {
             Set<SubService> subServiceSet = new HashSet<>(updatedSubServices);
 
             serviceDetails.setSubServices(subServiceSet);
+
+            serviceDetails.setPhotos(updatedPhotos);
 
             CustomApiResponse<Object> customApiResponse = new CustomApiResponse<>("Record Founds");
             customApiResponse.setData(serviceDetails);
@@ -152,11 +161,13 @@ public class ServiceImpl {
             List<KnowledgeBase> knowledgeBases = knowledgeBaseRepository.getKnowledgeBases(id);
             List<Blog> blogs = blogRepository.getServiceBlogs(id);
             List<SubService> subServices = subServiceRepository.getSubServices(id);
+            List<Gallery> photos = galleryRepository.getAllServicePhotos(id);
 
 
             knowledgeBaseRepository.deleteAll(knowledgeBases);
             blogRepository.deleteAll(blogs);
             subServiceRepository.deleteAll(subServices);
+            galleryRepository.deleteAll(photos);
 
             serviceRepository.delete(serviceDetails);
 

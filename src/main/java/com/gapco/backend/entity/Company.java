@@ -34,9 +34,15 @@ public class Company  extends Auditable {
 
     private String contactPhoneTwo;
 
+    @Column(columnDefinition = "TEXT")
     private String briefHistory;
+
+    @Column(columnDefinition = "TEXT")
     private String vision;
+
+    @Column(columnDefinition = "TEXT")
     private String mission;
+
     private String foundedYear;
 
     private int wareHouses;
@@ -44,7 +50,10 @@ public class Company  extends Auditable {
     private int satisfiedClients;
     private int ownedVehicles;
 
+
     private String ceoPhotoUrl;
     private String ceoFullName;
+
+    @Column(columnDefinition = "TEXT")
     private String ceoWord;
 }
