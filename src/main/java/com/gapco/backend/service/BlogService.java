@@ -60,6 +60,9 @@ public class BlogService {
 
             blogRepository.save(newBlog);
 
+            newBlog.getService().setSubServices(null);
+            newBlog.getService().setPhotos(null);
+
             CustomApiResponse<Object> customApiResponse = new CustomApiResponse<>("New Blog post has been successfully created");
             customApiResponse.setData(newBlog);
 
@@ -84,6 +87,12 @@ public class BlogService {
 
         List<Blog> blogs = pageableBlogs.getContent();
 
+        List<Blog> modifiedBlogs = blogs.stream().map((blog)->{
+           blog.getService().setPhotos(null);
+           blog.getService().setSubServices(null);
+           return blog;
+        }).toList();
+
         CustomApiResponse<Object> customApiResponse = new CustomApiResponse(
                 AppConstants.OPERATION_SUCCESSFULLY_MESSAGE,
                 pageableBlogs.getTotalElements(),
@@ -91,7 +100,7 @@ public class BlogService {
                 pageableBlogs.getNumber()
 
         );
-        customApiResponse.setData(blogs);
+        customApiResponse.setData(modifiedBlogs);
         return customApiResponse;
     }
 
@@ -103,6 +112,10 @@ public class BlogService {
 
 
             Blog blogDetails = checkBlog.get();
+
+            blogDetails.getService().setPhotos(null);
+            blogDetails.getService().setSubServices(null);
+
             CustomApiResponse<Object> customApiResponse = new CustomApiResponse<>("Record Founds");
             customApiResponse.setData(blogDetails);
             return customApiResponse;
@@ -124,7 +137,7 @@ public class BlogService {
             blogRepository.delete(blogDetails);
 
             CustomApiResponse<Object> customApiResponse = new CustomApiResponse<>("Blog has been successfully deleted");
-            customApiResponse.setData(blogDetails);
+            customApiResponse.setData(null);
             return customApiResponse;
 
         } else {
@@ -175,6 +188,9 @@ public class BlogService {
                 }
 
                 blogRepository.save(updatedBlogPost);
+
+                updatedBlogPost.getService().setSubServices(null);
+                updatedBlogPost.getService().setPhotos(null);
 
                 CustomApiResponse<Object> customApiResponse = new CustomApiResponse<>("Blog  post has been successfully updated");
                 customApiResponse.setData(updatedBlogPost);
