@@ -61,6 +61,10 @@ public class KnowledgeBaseService {
 
             knowledgeBaseRepository.save(newKnowledgeBase);
 
+
+            newKnowledgeBase.getService().setPhotos(null);
+            newKnowledgeBase.getService().setSubServices(null);
+
             CustomApiResponse<Object> customApiResponse = new CustomApiResponse<>("New KnowledgeBase has been successfully created");
             customApiResponse.setData(newKnowledgeBase);
 
@@ -86,6 +90,12 @@ public class KnowledgeBaseService {
 
         List<KnowledgeBase> knowledgeBases = pageableKnowledgeBases.getContent();
 
+        List<KnowledgeBase> updatedKnowledgeBases =  knowledgeBases.stream().map((knowledgeBase)->{
+            knowledgeBase.getService().setPhotos(null);
+            knowledgeBase.getService().setSubServices(null);
+            return knowledgeBase;
+        }).toList();
+
         CustomApiResponse<Object> customApiResponse = new CustomApiResponse(
                 AppConstants.OPERATION_SUCCESSFULLY_MESSAGE,
                 pageableKnowledgeBases.getTotalElements(),
@@ -93,7 +103,7 @@ public class KnowledgeBaseService {
                 pageableKnowledgeBases.getNumber()
 
         );
-        customApiResponse.setData(knowledgeBases);
+        customApiResponse.setData(updatedKnowledgeBases);
         return customApiResponse;
     }
 
@@ -105,6 +115,9 @@ public class KnowledgeBaseService {
         if(checkKnowledgeBase.isPresent()){
 
             KnowledgeBase knowledgeDetails = checkKnowledgeBase.get();
+            knowledgeDetails.getService().setPhotos(null);
+            knowledgeDetails.getService().setSubServices(null);
+
             CustomApiResponse<Object> customApiResponse = new CustomApiResponse<>("Record Founds");
             customApiResponse.setData(knowledgeDetails);
             return customApiResponse;
@@ -126,7 +139,7 @@ public class KnowledgeBaseService {
             knowledgeBaseRepository.delete(knowledgeDetails);
 
             CustomApiResponse<Object> customApiResponse = new CustomApiResponse<>("Record has been successfully deleted");
-            customApiResponse.setData(knowledgeDetails);
+            customApiResponse.setData(null);
             return customApiResponse;
 
         } else {
@@ -178,6 +191,10 @@ public class KnowledgeBaseService {
                 }
 
                 knowledgeBaseRepository.save(updatedKnowledge);
+
+
+                updatedKnowledge.getService().setPhotos(null);
+                updatedKnowledge.getService().setSubServices(null);
 
                 CustomApiResponse<Object> customApiResponse = new CustomApiResponse<>("KnowledgeBase has been successfully updated");
                 customApiResponse.setData(updatedKnowledge);
