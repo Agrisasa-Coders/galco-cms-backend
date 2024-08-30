@@ -184,6 +184,45 @@ public class CompanyService {
             throw new EntityNotFoundException("No matching institution found");
         }
     }
+    public CustomApiResponse<Object> updateCeoWord(Long id,CompanyCreateDTO companyCreateDTO) {
+        log.info("CompanyService::updateCeoWord Execution started");
+        log.debug("CompanyService::updateCeoWord the request coming is {}",companyCreateDTO.toString());
+
+        Optional<Company> companyById = companyRepository.findById(id);
+
+        if(companyById.isPresent()){
+
+            Company foundedCompany = companyById.get();
+
+
+
+            foundedCompany.setCeoFullName(companyCreateDTO.getCeoFullName());
+            foundedCompany.setCeoWord(companyCreateDTO.getCeoWord());
+
+            if(companyCreateDTO.getCeoPhoto() != null){
+
+                String filePath = storageService.storeFileToFileSystem(
+                        companyCreateDTO.getCeoPhoto(),
+                        companyCreateDTO.getCeoPhoto().getOriginalFilename()
+                );
+                foundedCompany.setCeoPhotoUrl(filePath);
+            }
+            if(!(companyCreateDTO.getLanguage() == null || companyCreateDTO.getLanguage() == "")){
+                foundedCompany.setLanguage(companyCreateDTO.getLanguage());
+            }
+
+            companyRepository.save(foundedCompany);
+
+            CustomApiResponse<Object> customApiResponse = new CustomApiResponse<>("Company has been successfully updated");
+            customApiResponse.setData(foundedCompany);
+
+            log.info("CompanyService::updateCeoWord Execution ended");
+            return customApiResponse;
+        }else{
+            log.error("CompanyService::updateCeoWord No matching institution");
+            throw new EntityNotFoundException("No matching institution found");
+        }
+    }
 
 
     public CustomApiResponse<Object> getCompany(Long companyId) {

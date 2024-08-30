@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping(AppConstants.BASE_URI+"/company")
+@RequestMapping(AppConstants.BASE_URI + "/company")
 @Tag(name = "CompanyController", description = "Operations for company management")
 public class CompanyController {
 
@@ -31,12 +31,12 @@ public class CompanyController {
     @Operation(
             summary = "Create company"
     )
-    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
+    @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json")})
     @PostMapping(consumes = "*/*")
-    public ResponseEntity<CustomApiResponse<Object>> createCompany(@ModelAttribute CompanyCreateDTO companyCreateDTO){
+    public ResponseEntity<CustomApiResponse<Object>> createCompany(@ModelAttribute CompanyCreateDTO companyCreateDTO) {
 
         log.info("CompanyController::createCompany Execution started");
-        log.info("CompanyController::createCompany getBody is {}",companyCreateDTO.toString());
+        log.info("CompanyController::createCompany getBody is {}", companyCreateDTO.toString());
         return new ResponseEntity<>(companyService.createCompany(companyCreateDTO), HttpStatus.OK);
     }
 
@@ -44,24 +44,34 @@ public class CompanyController {
             summary = "update company",
             description = "update company"
     )
-    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
-    @PutMapping(value = "/{id}",consumes = "*/*")
+    @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json")})
+    @PutMapping(value = "/{id}", consumes = "*/*")
     public ResponseEntity<CustomApiResponse<Object>> updateCompany(
             @Parameter(description = "Id of the company") @PathVariable Long id, @ModelAttribute CompanyCreateDTO companyCreateDTO
-    ){
+    ) {
         log.info("CompanyController::updateCompany Execution started");
-        return new ResponseEntity<>(companyService.updateCompany(id,companyCreateDTO), HttpStatus.OK);
+        System.out.println(companyCreateDTO.toString());
+        return new ResponseEntity<>(companyService.updateCompany(id, companyCreateDTO), HttpStatus.OK);
+    }
+    @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json")})
+    @PutMapping(value = "/ceo-word/{id}", consumes = "*/*")
+    public ResponseEntity<CustomApiResponse<Object>> updateCeoWord(
+            @Parameter(description = "Id of the company") @PathVariable Long id, @ModelAttribute CompanyCreateDTO companyCreateDTO
+    ) {
+        log.info("CompanyController::updateCeoWord Execution started");
+        System.out.println(companyCreateDTO.toString());
+        return new ResponseEntity<>(companyService.updateCeoWord(id, companyCreateDTO), HttpStatus.OK);
     }
 
 
     @Operation(
             summary = "get company details"
     )
-    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
+    @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json")})
     @GetMapping("/{id}")
     public ResponseEntity<CustomApiResponse<Object>> getCompanyDetails(
             @Parameter(description = "Id of the company") @PathVariable Long id
-    ){
+    ) {
         log.info("CompanyController::company Execution started");
         return new ResponseEntity<>(companyService.getCompany(id), HttpStatus.OK);
     }
@@ -70,11 +80,11 @@ public class CompanyController {
     @Operation(
             summary = "delete a company"
     )
-    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
+    @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json")})
     @DeleteMapping("/{id}")
     public ResponseEntity<CustomApiResponse<Object>> deleteCompany(
             @Parameter(description = "Id of the company") @PathVariable Long id
-    ){
+    ) {
         log.info("CompanyController::company Execution started");
         return new ResponseEntity<>(companyService.deleteCompany(id), HttpStatus.OK);
     }
@@ -83,9 +93,9 @@ public class CompanyController {
     @Operation(
             summary = "delete all companies"
     )
-    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
+    @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json")})
     @DeleteMapping
-    public ResponseEntity<CustomApiResponse<Object>> deleteAll(){
+    public ResponseEntity<CustomApiResponse<Object>> deleteAll() {
         log.info("CompanyController::deleteAll Execution started");
         return new ResponseEntity<>(companyService.deleteAll(), HttpStatus.OK);
     }
@@ -94,7 +104,7 @@ public class CompanyController {
     @Operation(
             summary = "Get all companies"
     )
-    @ApiResponse(responseCode = "200",content = { @Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json") })
+    @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = CustomApiResponse.class), mediaType = "application/json")})
     @GetMapping("/all")
     public ResponseEntity<CustomApiResponse<Object>> getAllCompanies(
             @Parameter(description = AppConstants.PAGE_NUMBER_DESCRIPTION) @RequestParam(defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
@@ -102,8 +112,8 @@ public class CompanyController {
             @Parameter(description = AppConstants.SORT_BY_DESCRIPTION) @RequestParam(defaultValue = AppConstants.DEFAULT_SORT_BY) String sort,
             @Parameter(description = AppConstants.SORT_DIRECTION_DESCRIPTION) @RequestParam(defaultValue = AppConstants.DEFAULT_SORT_DIRECTION) String dir,
             @Parameter(description = AppConstants.LANGUAGE_DESCRIPTION) @RequestParam(defaultValue = AppConstants.DEFAULT_LANGUAGE) String lan
-    ){
+    ) {
         log.info("CompanyController::getAllCompanies Execution started");
-        return new ResponseEntity<>(companyService.getAllCompanies(page,size,sort,dir,lan), HttpStatus.OK);
+        return new ResponseEntity<>(companyService.getAllCompanies(page, size, sort, dir, lan), HttpStatus.OK);
     }
 }
